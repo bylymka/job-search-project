@@ -1,0 +1,54 @@
+CREATE TABLE users(
+	UserID BIGINT NOT NULL AUTO_INCREMENT,
+	Username VARCHAR(45) NOT NULL,
+	Role ENUM('admin','employee', 'employer') NOT NULL,
+	Password VARCHAR(100) NOT NULL, 
+	FirstName VARCHAR(100) NOT NULL,
+	LastName VARCHAR(100) NOT NULL,
+	DateOfBirth DATE,
+	Email VARCHAR(255),
+	City VARCHAR(255),
+	PhoneNum VARCHAR(20),
+	UNIQUE(Username),
+	PRIMARY KEY(UserID)
+);
+
+CREATE TABLE companies(
+	CompanyID BIGINT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(255) NOT NULL,
+	Description VARCHAR(2000),
+	Industry VARCHAR(255),
+	EmployeesNum INT,
+	PRIMARY KEY(CompanyID)
+);
+
+CREATE TABLE employers(
+	EmployerID BIGINT NOT NULL AUTO_INCREMENT,
+	UserID BIGINT NOT NULL,
+	CompanyID BIGINT NOT NULL,
+	PRIMARY KEY(EmployerID),
+	FOREIGN KEY(UserID) REFERENCES users(UserID),
+	FOREIGN KEY(CompanyID) REFERENCES companies(CompanyID)
+);
+
+CREATE TABLE employees(
+	EmployeeID BIGINT NOT NULL AUTO_INCREMENT,
+	UserID BIGINT NOT NULL,
+	Resume BLOB,
+	PRIMARY KEY(EmployeeID),
+	FOREIGN KEY(UserID) REFERENCES users(UserID)
+);
+
+CREATE TABLE jobs(
+	JobID BIGINT NOT NULL AUTO_INCREMENT,
+	JobTitle VARCHAR(255) NOT NULL,
+	Desciption VARCHAR(2000) NOT NULL,
+	PostedOn DATE NOT NULL,
+	EmployerID BIGINT NOT NULL,
+	Field VARCHAR(255) NOT NULL,
+	JobStatus ENUM('active', 'non-active'),
+	Location VARCHAR(255) NOT NULL,
+	Skills VARCHAR(2000) NOT NULL,
+	PRIMARY KEY(JobID),
+	FOREIGN KEY(EmployerID) REFERENCES employers(EmployerID)
+);
