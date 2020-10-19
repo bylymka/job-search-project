@@ -8,19 +8,16 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 import lombok.extern.java.Log;
 
-//exclude = {DataSourceAutoConfiguration.class }
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer
 {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) 
 	{
-        return application.sources(DemoApplication.class);
+       		return application.sources(DemoApplication.class);
 	}
         
 	public static void main(String[] args) 
 	{
 		SpringApplication.run(DemoApplication.class, args);
-	}
-	
-	
+	}	
 }
