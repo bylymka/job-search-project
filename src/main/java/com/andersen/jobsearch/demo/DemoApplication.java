@@ -19,7 +19,6 @@ public class DemoApplication extends SpringBootServletInitializer
         
 	public static void main(String[] args) 
 	{
-		System.setProperty("server.servlet.context-path", "/job-search");
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	

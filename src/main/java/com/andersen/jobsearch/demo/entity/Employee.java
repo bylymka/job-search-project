@@ -32,10 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee extends BaseEntity
-{
-	//@Column(name="UserId")
-	//private Long userId;
-	
+{	
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
