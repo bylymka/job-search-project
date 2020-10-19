@@ -8,7 +8,7 @@ import com.andersen.jobsearch.demo.entity.Company;
 
 public interface CompanyService
 {
-	Optional<Company> findById(Long id);
+	Company findById(Long id);
 	
 	Company saveCompany(Company company);
 	

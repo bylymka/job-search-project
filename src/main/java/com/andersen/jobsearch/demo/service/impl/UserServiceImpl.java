@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.UserService;
 
@@ -18,21 +19,26 @@ public class UserServiceImpl implements UserService
 	UserRepository userRepository;
 	
 	@Override
-	public Optional<User> findById(Long id) 
+	public User findById(Long id) 
 	{
-		return Optional.of(userRepository.getOne(id));
+		return userRepository.findById(id).
+				orElseThrow(() -> new IllegalArgumentException("The user with id " + id + " does not exist."));
 	}
 
 	@Override
-	public Optional<User> findByUsername(String username) 
+	public User findByUsername(String username) 
 	{
-		return userRepository.findByUsername(username);
+		return userRepository.findByUsername(username).
+				orElseThrow(() -> new IllegalArgumentException("The user with username " + username + " does not exist."));
 	}
 
 	@Override
-	public Optional<User> saveUser(User user) 
+	public User saveUser(User user) 
 	{
-		return Optional.of(userRepository.save(user));
+		if(userRepository.existsUserByUsername(user.getUsername()))
+			throw new EntityAlreadyExistAuthenticationException(
+					"User with username " + user.getUsername() + " already exists.");
+		return userRepository.save(user);
 	}
 
 	@Override
@@ -42,14 +48,18 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public Optional<User> modifyUser(User user) 
+	public User modifyUser(User user) 
 	{
-		Optional<User> userFromDb = userRepository.findById(user.getId());
-		userFromDb.get().setId(user.getId());
-		userFromDb.get().setRole(user.getRole());
-		userFromDb.get().setPassword(user.getPassword());
-		userFromDb.get().setUsername(user.getUsername());
-		userRepository.save(userFromDb.get());
+		User userFromDb = userRepository.findById(
+				user.getId()).orElseThrow(() -> new IllegalArgumentException(
+						"The user with id " + user.getId() + " does not exist."))));
+						
+		userFromDb.setId(user.getId());
+		userFromDb.setRole(user.getRole());
+		userFromDb.setPassword(user.getPassword());
+		userFromDb.setUsername(user.getUsername());
+		userRepository.save(userFromDb);
+		
 		return userFromDb;
 	}
 }

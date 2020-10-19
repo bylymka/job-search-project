@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 
 public interface UserService
 {
-	Optional<User> findById(Long id);
+	User findById(Long id);
 	
-	Optional<User> findByUsername(String username);
+	User findByUsername(String username);
 	
-	Optional<User> saveUser(User user);
+	User saveUser(User user);
 	
 	List<User> findAllUsersByRole(Role role);
 	
-	Optional<User> modifyUser(User user);
+	User modifyUser(User user);
 }

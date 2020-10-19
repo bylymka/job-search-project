@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Company;
+import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.CompanyRepository;
 import com.andersen.jobsearch.demo.service.CompanyService;
 
@@ -17,30 +18,34 @@ public class CompanyServiceImpl implements CompanyService
 	CompanyRepository companyRepository;
 	
 	@Override
-	public Optional<Company> findById(Long id) 
+	public Company findById(Long id) 
 	{
-		return companyRepository.findById(id);
+		return companyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("The company with id " + id + " does not exist."));
 	}
 
 	@Override
 	public Company saveCompany(Company company) 
 	{
+		if(companyRepository.existsCompanyByNameAndCodeEDRPOU(company.getName(), company.getCodeEDRPOU()))
+				throw new EntityAlreadyExistAuthenticationException(
+						"Company with name " + company.getName() + " and code EDRPOU " + company.getCodeEDRPOU() + " already exists.");
 		return companyRepository.save(company);
 	}
 
 	@Override
 	public Company modifyCompany(Company company)
-	{
-		Optional<Company> companyFromDb = companyRepository.findById(company.getId());
-		companyFromDb.get().setId(company.getId());
-		companyFromDb.get().setName(company.getName());
-		companyFromDb.get().setIndustry(company.getIndustry());
-		companyFromDb.get().setDescription(company.getDescription());
-		companyFromDb.get().setCodeEDRPOU(company.getCodeEDRPOU());
-		companyFromDb.get().setEmployeesNum(company.getEmployeesNum());
-		companyFromDb.get().setAddress(company.getAddress());
-		companyRepository.save(companyFromDb.get());
+	{	
+		Company companyFromDb = companyRepository.findById(company.getId()).
+				orElseThrow(() -> new IllegalArgumentException("The company with id " + company.getId() + " does not exist."));
+		companyFromDb.setId(company.getId());
+		companyFromDb.setName(company.getName());
+		companyFromDb.setIndustry(company.getIndustry());
+		companyFromDb.setDescription(company.getDescription());
+		companyFromDb.setCodeEDRPOU(company.getCodeEDRPOU());
+		companyFromDb.setEmployeesNum(company.getEmployeesNum());
+		companyFromDb.setAddress(company.getAddress());
+		companyRepository.save(companyFromDb);
 		
-		return companyFromDb.get();
+		return companyFromDb;
 	}
 }
