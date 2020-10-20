@@ -48,11 +48,10 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User modifyUser(User user) 
+	public User modifyUser(User user)
 	{
-		User userFromDb = userRepository.findById(
-				user.getId()).orElseThrow(() -> new IllegalArgumentException(
-						"The user with id " + user.getId() + " does not exist."))));
+		User userFromDb = userRepository.findById(user.getId())
+				.orElseThrow(() -> new IllegalArgumentException("The user with id " + user.getId() + " does not exist."));
 						
 		userFromDb.setId(user.getId());
 		userFromDb.setRole(user.getRole());

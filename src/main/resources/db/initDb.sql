@@ -1,0 +1,70 @@
+CREATE TABLE users(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	Username VARCHAR(45) NOT NULL,
+	Role ENUM('admin','employee', 'employer') NOT NULL,
+	Password VARCHAR(100) NOT NULL, 
+	UNIQUE(Username),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE companies(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(255) NOT NULL,
+	CodeEDRPOU BIGINT NOT NULL,
+	Address VARCHAR(500),
+	Description VARCHAR(2000),
+	Industry VARCHAR(255),
+	EmployeesNum INT,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE employers(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	UserId BIGINT NOT NULL,
+	CompanyId BIGINT NOT NULL,
+	Position VARCHAR(255) NOT NULL,
+	Email VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(UserId) REFERENCES users(id),
+	FOREIGN KEY(CompanyId) REFERENCES companies(id)
+);
+
+CREATE TABLE employees(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	FirstName VARCHAR(100) NOT NULL,
+	LastName VARCHAR(100) NOT NULL,
+	DateOfBirth DATE,
+	Email VARCHAR(255),
+	City VARCHAR(255),
+	PhoneNum VARCHAR(20),
+	UserId BIGINT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(UserId) REFERENCES users(id)
+);
+
+CREATE TABLE resumes(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	EmployeeId BIGINT NOT NULL,
+	DesiredPosition VARCHAR(255) NOT NULL,
+	City VARCHAR(255) NOT NULL,
+	WorkExperience VARCHAR(2000),
+	Skills VARCHAR(2000),
+	PRIMARY KEY(id),
+	FOREIGN KEY(EmployeeId) REFERENCES employees(id)
+);
+CREATE TABLE jobs(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	JobTitle VARCHAR(255) NOT NULL,
+	Desciption VARCHAR(2000) NOT NULL,
+	PostedOn DATE NOT NULL,
+	EmployerId BIGINT NOT NULL,
+	CompanyId BIGINT NOT NULL,
+	Industry VARCHAR(255) NOT NULL,
+	Status ENUM('active', 'non-active') NOT NULL,
+	Location VARCHAR(255) NOT NULL,
+	Skills VARCHAR(2000) NOT NULL,
+	Salary BIGINT,
+	EmploymentType ENUM('full_time_job', 'part_time_job', 'remote_job', 'intership'),
+	PRIMARY KEY(id),
+	FOREIGN KEY(EmployerId) REFERENCES employers(id)
+);
