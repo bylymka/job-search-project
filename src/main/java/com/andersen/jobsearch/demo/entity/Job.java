@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,37 +33,40 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Job extends BaseEntity 
 {
-	@Column(name="JobTitle")
+	@Column(name="job_title")
 	private String jobTitle;
 	
-	@Column(name="Description")
+	@Column(name="description")
 	private String description;
 	
-	@Column(name="PostedOn")
+	@Column(name="posted_on")
 	private LocalDate postedOn;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "employer_id")
 	private Employer employer;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
-	@Column(name="Industry")
+	@Column(name="industry")
 	private String industry;
 	
-	@Column(name="Status")
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
 	private JobStatus status;
 	
-	@Column(name="Location")
+	@Column(name="location")
 	private String location;
 	
-	@Column(name="Skills")
+	@Column(name="skills")
 	private String skills;
 	
-	@Column(name="Salary")
+	@Column(name="salary")
 	private Integer salary;
 	
-	@Column(name="EmploymentType")
+	@Enumerated(EnumType.STRING)
+	@Column(name="employment_type")
 	private EmploymentType employmentType;
 }

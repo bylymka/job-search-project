@@ -3,6 +3,7 @@ package com.andersen.jobsearch.demo.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.ManyToOne;
@@ -27,19 +28,19 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Resume extends BaseEntity
 {
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="employee_id")
 	private Employee employee;
 	
-	@Column(name="DesiredPosition")
+	@Column(name="desired_position")
 	private String desiredPosition;
 	
-	@Column(name="City")
+	@Column(name="city")
 	private String city;
 	
-	@Column(name="WorkExperience")
+	@Column(name="work_experience")
 	private String workExperience;
 	
-	@Column(name="Skills")
+	@Column(name="skills")
 	private String skills;
 }

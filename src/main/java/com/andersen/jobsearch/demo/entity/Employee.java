@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,29 +34,30 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Employee extends BaseEntity
 {	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@Column(name="FirstName")
+	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="LastName")
+	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="DateOfBirth")
+	@Column(name="date_of_birth")
 	private LocalDate dateOfBirth;
 	
-	@Column(name="Email")
+	@Column(name="email")
 	@Email
 	private String email;
 	
-	@Column(name="City")
+	@Column(name="city")
 	private String city;
 	
-	@Column(name="phoneNum")
+	@Column(name="phone_num")
 	private String phoneNum;
 
 	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	List<Resume> resumes;
 }

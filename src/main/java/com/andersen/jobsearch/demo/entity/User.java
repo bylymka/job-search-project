@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -27,13 +29,14 @@ import lombok.ToString;
 @AllArgsConstructor
 public class User extends BaseEntity
 {
-	@Column(name="Username")
+	@Column(name="username")
 	private String username;
 	
-	@Column(name="Role")
+	@Enumerated(EnumType.STRING)
+	@Column(name="role")
 	private Role role;
 	
-	@Column(name="Password")
+	@Column(name="password")
 	@Size(min = 4, max = 45)
 	private String password;
 }

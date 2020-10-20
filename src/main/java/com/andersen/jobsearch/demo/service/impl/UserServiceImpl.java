@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User saveUser(User user) 
+	public User saveUser(User user) throws EntityAlreadyExistAuthenticationException 
 	{
 		if(userRepository.existsUserByUsername(user.getUsername()))
 			throw new EntityAlreadyExistAuthenticationException(

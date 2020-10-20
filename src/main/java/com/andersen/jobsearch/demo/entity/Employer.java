@@ -3,6 +3,8 @@ package com.andersen.jobsearch.demo.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,16 +29,18 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Employer extends BaseEntity
 {	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Company.class)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
 	private Company company;
 	
-	@Column(name="Position")
+	@Column(name="position")
 	private String position;
 	
-	@Column(name="Email")
+	@Column(name="email")
 	@Email
 	private String email;
 }

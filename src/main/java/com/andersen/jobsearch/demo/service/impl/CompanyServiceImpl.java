@@ -24,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService
 	}
 
 	@Override
-	public Company saveCompany(Company company) 
+	public Company saveCompany(Company company) throws EntityAlreadyExistAuthenticationException 
 	{
 		if(companyRepository.existsCompanyByNameAndCodeEDRPOU(company.getName(), company.getCodeEDRPOU()))
 				throw new EntityAlreadyExistAuthenticationException(
