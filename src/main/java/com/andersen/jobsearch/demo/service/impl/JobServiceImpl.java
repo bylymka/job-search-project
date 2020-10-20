@@ -20,6 +20,11 @@ public class JobServiceImpl implements JobService
 	@Autowired
 	JobRepository jobRepository;
 	
+	public JobServiceImpl(JobRepository jobRepository)
+	{
+		this.jobRepository = jobRepository;
+	}
+
 	@Override
 	public Job saveJob(Job job)
 	{

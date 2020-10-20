@@ -4,20 +4,34 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.entity.AvailableRoles;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
+import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.UserService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class UserServiceImpl implements UserService
 {
-	@Autowired
-	UserRepository userRepository;
+	private final BCryptPasswordEncoder passwordEncoder;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
 	
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder)
+	{
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	@Override
 	public User findById(Long id) 
 	{
@@ -33,7 +47,7 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User saveUser(User user) throws EntityAlreadyExistAuthenticationException 
+	public User registerUser(User user) throws EntityAlreadyExistAuthenticationException 
 	{
 		if(userRepository.existsUserByUsername(user.getUsername()))
 			throw new EntityAlreadyExistAuthenticationException(
@@ -42,9 +56,9 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<User> findAllUsersByRole(Role role) 
+	public List<User> findAllUsersByRole(AvailableRoles role) 
 	{
-		return userRepository.findByRole(role);
+		return roleRepository.findByRole(role);
 	}
 
 	@Override
@@ -54,7 +68,7 @@ public class UserServiceImpl implements UserService
 				.orElseThrow(() -> new IllegalArgumentException("The user with id " + user.getId() + " does not exist."));
 						
 		userFromDb.setId(user.getId());
-		userFromDb.setRole(user.getRole());
+		//userFromDb.setRoles(user.getRoles());
 		userFromDb.setPassword(user.getPassword());
 		userFromDb.setUsername(user.getUsername());
 		userRepository.save(userFromDb);

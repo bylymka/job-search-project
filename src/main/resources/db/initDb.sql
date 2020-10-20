@@ -1,11 +1,26 @@
 CREATE TABLE IF NOT EXISTS users(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	Username VARCHAR(45) NOT NULL,
-	Role ENUM('admin','employee', 'employer') NOT NULL,
-	Password VARCHAR(100) NOT NULL, 
+	username VARCHAR(45) NOT NULL,
+	password VARCHAR(100) NOT NULL, 
 	UNIQUE(Username),
 	PRIMARY KEY(id)
 );
+
+CREATE TABLE IF NOT EXISTS roles(
+	id INT NOT NULL AUTO_INCREMENT,
+	role ENUM('admin', 'employee', 'employer'),	
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_roles(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	user_id BIGINT NOT NULL,
+	role_id INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(user_id) REFERENCES users(id),
+	FOREIGN KEY(role_id) REFERENCES roles(id)
+);
+
 
 CREATE TABLE IF NOT EXISTS companies(
 	id BIGINT NOT NULL AUTO_INCREMENT,

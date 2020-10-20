@@ -16,6 +16,11 @@ public class EmployeeServiceImpl implements EmployeeService
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
+	public EmployeeServiceImpl(EmployeeRepository employeeRepository)
+	{
+		this.employeeRepository = employeeRepository;
+	}
+
 	@Override
 	public Optional<Employee> findById(Long id) 
 	{

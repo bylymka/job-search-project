@@ -16,6 +16,11 @@ public class EmployerServiceImpl implements EmployerService
 	@Autowired
 	EmployerRepository employerRepository;
 
+	public EmployerServiceImpl(EmployerRepository employerRepository)
+	{
+		this.employerRepository = employerRepository;
+	}
+
 	@Override
 	public Optional<Employer> findById(Long id)
 	{

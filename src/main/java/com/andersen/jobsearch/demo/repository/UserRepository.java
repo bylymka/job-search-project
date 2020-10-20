@@ -34,13 +34,6 @@ public interface UserRepository extends JpaRepository<User, Long>
 	Boolean existsUserByUsername(String username);
 	
 	/**
-	 * Finds all the users that have such role.
-	 * @param role users role
-	 * @return list of all users that have such role.
-	 */
-	List<User> findByRole(Role role);
-	
-	/**
 	 * Finds user by username
 	 * @param username
 	 * @return user with such username

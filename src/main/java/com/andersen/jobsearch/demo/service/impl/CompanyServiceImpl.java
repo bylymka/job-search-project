@@ -17,6 +17,11 @@ public class CompanyServiceImpl implements CompanyService
 	@Autowired
 	CompanyRepository companyRepository;
 	
+	public CompanyServiceImpl(CompanyRepository companyRepository)
+	{
+		this.companyRepository = companyRepository;
+	}
+
 	@Override
 	public Company findById(Long id) 
 	{
