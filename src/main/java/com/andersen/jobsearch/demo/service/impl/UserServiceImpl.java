@@ -20,17 +20,28 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserServiceImpl implements UserService
 {
-	private final BCryptPasswordEncoder passwordEncoder;
-	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
+	//@Autowired
+	//private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder)
+	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) 
 	{
-		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
-		this.passwordEncoder = passwordEncoder;
+	  this.userRepository = userRepository;
+	  this.roleRepository = roleRepository;
 	}
+	  
+	public UserServiceImpl() 
+	{
+	  
+	}
+	 
 
 	@Override
 	public User findById(Long id) 
