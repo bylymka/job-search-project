@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/users")
 @Slf4j
-public class UserController
+public class AdminController
 {
 		
 }

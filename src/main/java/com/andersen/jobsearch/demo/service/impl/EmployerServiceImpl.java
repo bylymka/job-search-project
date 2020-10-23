@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Employer;
+import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.EmployerRepository;
 import com.andersen.jobsearch.demo.service.EmployerService;
 
@@ -28,7 +29,7 @@ public class EmployerServiceImpl implements EmployerService
 	}
 
 	@Override
-	public Employer saveEmployer(Employer employer) 
+	public Employer saveEmployer(Employer employer) throws EntityAlreadyExistAuthenticationException
 	{
 		return employerRepository.save(employer);
 	}
@@ -40,7 +41,6 @@ public class EmployerServiceImpl implements EmployerService
 		employerFromDb.get().setUser(employer.getUser());
 		employerFromDb.get().setId(employer.getId());
 		employerFromDb.get().setCompany(employer.getCompany());
-		employerFromDb.get().setEmail(employer.getEmail());
 		employerFromDb.get().setPosition(employer.getPosition());
 		
 		employerRepository.save(employerFromDb.get());

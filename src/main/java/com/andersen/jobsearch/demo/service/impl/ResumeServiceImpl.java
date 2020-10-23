@@ -17,8 +17,6 @@ public class ResumeServiceImpl implements ResumeService
 	@Autowired
 	ResumeRepository resumeRepository;
 	
-	
-
 	public ResumeServiceImpl(ResumeRepository resumeRepository)
 	{
 		this.resumeRepository = resumeRepository;

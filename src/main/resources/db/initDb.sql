@@ -2,84 +2,74 @@ CREATE TABLE IF NOT EXISTS users(
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(45) NOT NULL,
 	password VARCHAR(100) NOT NULL, 
+	first_name VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	email VARCHAR(255),
+	phoneNum VARCHAR(20),
 	UNIQUE(Username),
-	PRIMARY KEY(id)
-);
-
-CREATE TABLE IF NOT EXISTS roles(
-	id INT NOT NULL AUTO_INCREMENT,
-	role ENUM('admin', 'employee', 'employer'),	
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS user_roles(
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	user_id BIGINT NOT NULL,
-	role_id INT NOT NULL,
+	role ENUM('admin', 'employee', 'employer'),
 	PRIMARY KEY(id),
-	FOREIGN KEY(user_id) REFERENCES users(id),
-	FOREIGN KEY(role_id) REFERENCES roles(id)
+	FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 
 CREATE TABLE IF NOT EXISTS companies(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	Name VARCHAR(255) NOT NULL,
-	CodeEDRPOU BIGINT NOT NULL,
-	Address VARCHAR(500),
-	Description VARCHAR(2000),
-	Industry VARCHAR(255),
-	EmployeesNum INT,
+	name VARCHAR(255) NOT NULL,
+	code_EDRPOU BIGINT NOT NULL,
+	adress VARCHAR(500),
+	description VARCHAR(2000),
+	industry VARCHAR(255),
+	employees_num INT,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS employers(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	UserId BIGINT NOT NULL,
-	CompanyId BIGINT NOT NULL,
-	Position VARCHAR(255) NOT NULL,
-	Email VARCHAR(255) NOT NULL,
+	user_id BIGINT NOT NULL,
+	company_id BIGINT NOT NULL,
+	position VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(UserId) REFERENCES users(id),
-	FOREIGN KEY(CompanyId) REFERENCES companies(id)
+	FOREIGN KEY(user_id) REFERENCES users(id),
+	FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE IF NOT EXISTS employees(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	FirstName VARCHAR(100) NOT NULL,
-	LastName VARCHAR(100) NOT NULL,
-	DateOfBirth DATE,
-	Email VARCHAR(255),
-	City VARCHAR(255),
-	PhoneNum VARCHAR(20),
-	UserId BIGINT NOT NULL,
+	user_id BIGINT NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(UserId) REFERENCES users(id)
+	FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 CREATE TABLE  IF NOT EXISTS resumes(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	EmployeeId BIGINT NOT NULL,
-	DesiredPosition VARCHAR(255) NOT NULL,
-	City VARCHAR(255) NOT NULL,
-	WorkExperience VARCHAR(2000),
-	Skills VARCHAR(2000),
+	employee_id BIGINT NOT NULL,
+	desired_position VARCHAR(255) NOT NULL,
+	city VARCHAR(255) NOT NULL,
+	work_experience VARCHAR(2000),
+	skills VARCHAR(2000),
 	PRIMARY KEY(id),
-	FOREIGN KEY(EmployeeId) REFERENCES employees(id)
+	FOREIGN KEY(employee_id) REFERENCES employees(id)
 );
 CREATE TABLE IF NOT EXISTS jobs(
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	JobTitle VARCHAR(255) NOT NULL,
-	Desciption VARCHAR(2000) NOT NULL,
-	PostedOn DATE NOT NULL,
-	EmployerId BIGINT NOT NULL,
-	CompanyId BIGINT NOT NULL,
-	Industry VARCHAR(255) NOT NULL,
-	Status ENUM('active', 'non-active') NOT NULL,
-	Location VARCHAR(255) NOT NULL,
-	Skills VARCHAR(2000) NOT NULL,
-	Salary BIGINT,
-	EmploymentType ENUM('full_time_job', 'part_time_job', 'remote_job', 'intership'),
+	job_title VARCHAR(255) NOT NULL,
+	desciption VARCHAR(2000) NOT NULL,
+	posted_on DATE NOT NULL,
+	employer_id BIGINT NOT NULL,
+	company_id BIGINT NOT NULL,
+	industry VARCHAR(255) NOT NULL,
+	status ENUM('active', 'non-active') NOT NULL,
+	location VARCHAR(255) NOT NULL,
+	skills VARCHAR(2000) NOT NULL,
+	salary BIGINT,
+	employment_type ENUM('full_time_job', 'part_time_job', 'remote_job', 'intership'),
 	PRIMARY KEY(id),
-	FOREIGN KEY(EmployerId) REFERENCES employers(id)
+	FOREIGN KEY(employer_id) REFERENCES employers(id)
 );

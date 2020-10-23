@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Employee;
+import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.EmployeeRepository;
 import com.andersen.jobsearch.demo.service.EmployeeService;
 
@@ -28,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService
 	}
 
 	@Override
-	public Employee saveEmployee(Employee employee) 
+	public Employee saveEmployee(Employee employee) throws EntityAlreadyExistAuthenticationException
 	{
 		return employeeRepository.save(employee);
 	}
@@ -39,15 +40,10 @@ public class EmployeeServiceImpl implements EmployeeService
 		Optional<Employee> employeeFromDb = employeeRepository.findById(employee.getId());
 		employeeFromDb.get().setId(employee.getId());
 		employeeFromDb.get().setUser(employee.getUser());
-		employeeFromDb.get().setCity(employee.getCity());
-		employeeFromDb.get().setDateOfBirth(employee.getDateOfBirth());
-		employeeFromDb.get().setEmail(employee.getEmail());
-		employeeFromDb.get().setFirstName(employee.getFirstName());
-		employeeFromDb.get().setLastName(employee.getLastName());
-		employeeFromDb.get().setPhoneNum(employee.getPhoneNum());
 		employeeFromDb.get().setResumes(employee.getResumes());
 		
 		employeeRepository.save(employeeFromDb.get());
 		return employeeFromDb.get();
 	}
 }
+;

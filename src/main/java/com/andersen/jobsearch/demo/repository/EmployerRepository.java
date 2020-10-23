@@ -18,5 +18,5 @@ import com.andersen.jobsearch.demo.entity.Employer;
 @Repository
 public interface EmployerRepository extends JpaRepository<Employer, Long>
 {	
-	Optional<Employer> findById(Long id);
+
 }

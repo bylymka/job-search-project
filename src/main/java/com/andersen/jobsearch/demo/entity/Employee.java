@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employee
 {	
 	@Id
@@ -44,25 +46,6 @@ public class Employee
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-	@Column(name="first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-	
-	@Column(name="date_of_birth")
-	private LocalDate dateOfBirth;
-	
-	@Column(name="email")
-	@Email
-	private String email;
-	
-	@Column(name="city")
-	private String city;
-	
-	@Column(name="phone_num")
-	private String phoneNum;
 
 	@Basic(fetch = FetchType.LAZY)
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)

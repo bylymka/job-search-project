@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employer
 {	
 	@Id
@@ -46,8 +48,4 @@ public class Employer
 	
 	@Column(name="position")
 	private String position;
-	
-	@Column(name="email")
-	@Email
-	private String email;
 }

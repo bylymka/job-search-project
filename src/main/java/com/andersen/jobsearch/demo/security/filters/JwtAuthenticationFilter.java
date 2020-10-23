@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import io.jsonwebtoken.*;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter
 {
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager)
@@ -81,14 +83,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 						.signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
 						.compact();
 			}
-			
-					/*
-			String token = JWT.create()
-					.withSubject(((org.springframework.security.core.userdetails.User)authResult.getPrincipal()).getUsername())
-					.withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-					.sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
-			
-			response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);*/
 		}
 	}
 }

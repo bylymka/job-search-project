@@ -3,38 +3,35 @@ package com.andersen.jobsearch.demo.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Table;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.andersen.jobsearch.demo.entity.AvailableRoles;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
-import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.repository.UserRepository;
+import com.andersen.jobsearch.demo.repository.UserRolesRepository;
 import com.andersen.jobsearch.demo.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class UserServiceImpl implements UserService
-{
-	//@Autowired
-	//private BCryptPasswordEncoder passwordEncoder;
-	
+{	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
-	private RoleRepository roleRepository;
-	
+	private UserRolesRepository userRolesRepository;
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) 
+	public UserServiceImpl(UserRepository userRepository, UserRolesRepository userRolesRepository) 
 	{
 	  this.userRepository = userRepository;
-	  this.roleRepository = roleRepository;
+	  this.userRolesRepository = userRolesRepository;
 	}
 	  
 	public UserServiceImpl() 
@@ -42,7 +39,6 @@ public class UserServiceImpl implements UserService
 	  
 	}
 	 
-
 	@Override
 	public User findById(Long id) 
 	{
@@ -67,9 +63,9 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<User> findAllUsersByRole(AvailableRoles role) 
+	public List<User> findAllUsersByRole(Role role) 
 	{
-		return roleRepository.findByRole(role);
+		return userRolesRepository.findUserByRole(role);
 	}
 
 	@Override
@@ -79,9 +75,13 @@ public class UserServiceImpl implements UserService
 				.orElseThrow(() -> new IllegalArgumentException("The user with id " + user.getId() + " does not exist."));
 						
 		userFromDb.setId(user.getId());
-		//userFromDb.setRoles(user.getRoles());
 		userFromDb.setPassword(user.getPassword());
 		userFromDb.setUsername(user.getUsername());
+		userFromDb.setFirstName(user.getFirstName());
+		userFromDb.setLastName(user.getLastName());
+		userFromDb.setEmail(user.getEmail());
+		userFromDb.setPhoneNum(user.getPhoneNum());
+		
 		userRepository.save(userFromDb);
 		
 		return userFromDb;
