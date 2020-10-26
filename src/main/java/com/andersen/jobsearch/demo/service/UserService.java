@@ -3,6 +3,7 @@ package com.andersen.jobsearch.demo.service;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.entity.UserRole;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface UserService
 	
 	User registerUser(User user) throws EntityAlreadyExistAuthenticationException;
 	
-	List<User> findAllUsersByRole(Role role);
+	List<User> findAllUsersByRole(UserRole role);
 	
 	User modifyUser(User user);
 }

@@ -10,12 +10,19 @@ CREATE TABLE IF NOT EXISTS users(
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE IF NOT EXISTS roles(
+	id INT NOT NULL AUTO_INCREMENT,
+	name ENUM('ADMIN', 'EMPLOYEE', 'EMPLOYER'),
+	PRIMARY KEY(id)
+);
+
 CREATE TABLE IF NOT EXISTS user_roles(
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	user_id BIGINT NOT NULL,
-	role ENUM('admin', 'employee', 'employer'),
+	role_id INT NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(user_id) REFERENCES users(id)
+	FOREIGN KEY(user_id) REFERENCES users(id),
+	FOREIGN KEY(role_id) REFERENCES roles(id)
 );
 
 

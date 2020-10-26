@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.andersen.jobsearch.demo.entity.Role;
+import com.andersen.jobsearch.demo.entity.UserRole;
 import com.andersen.jobsearch.demo.security.UserDetailsServiceImpl;
 import com.andersen.jobsearch.demo.security.filters.JwtAuthenticationFilter;
 import com.andersen.jobsearch.demo.security.filters.JwtAuthorizationFilter;
@@ -53,10 +54,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers("/", "/api/v1/auth/login/", "/api/v1/logout/", "/api/v1/registration").permitAll()
-                .and().authorizeRequests().antMatchers("/admin/**").hasRole(Role.ADMIN.name())
-        		.and().authorizeRequests().antMatchers("/employee/**").hasRole(Role.EMPLOYEE.name())
-        		.and().authorizeRequests().antMatchers("/employer/**").hasRole(Role.EMPLOYER.name())
+                .and().authorizeRequests().antMatchers("/", "/api/v1/auth/login/", "/api/v1/logout/", "/sign-up/**").permitAll()
+                .and().authorizeRequests().antMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
+        		.and().authorizeRequests().antMatchers("/employee/**").hasRole(UserRole.EMPLOYEE.name())
+        		.and().authorizeRequests().antMatchers("/employer/**").hasRole(UserRole.EMPLOYER.name())
         		.anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and().formLogin().loginPage( "/api/v1/auth/login/")

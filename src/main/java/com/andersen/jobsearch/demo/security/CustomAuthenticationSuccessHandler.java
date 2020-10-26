@@ -24,10 +24,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if ("ADMIN".equals(auth.getAuthority())) 
             	response.sendRedirect("/admin-dashboard");
             
-            if("EMPLYEE".equals(auth.getAuthority()))
+            if("EMPLOYEE".equals(auth.getAuthority()))
             	response.sendRedirect("/employee-dashboard");
             
-            if("EMPLYER".equals(auth.getAuthority()))
+            if("EMPLOYER".equals(auth.getAuthority()))
             	response.sendRedirect("/employer-dashboard");	
         }
     }

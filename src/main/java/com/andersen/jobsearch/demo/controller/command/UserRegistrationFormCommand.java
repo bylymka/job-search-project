@@ -28,7 +28,7 @@ public class UserRegistrationFormCommand
 	private String lastName;
 	
 	@NotBlank
-    @Size(min = 5, max = 15)
+    @Size(min = 5, max = 35)
 	private String password;
 	
 	@NotBlank

@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.entity.UserRole;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.UserRepository;
-import com.andersen.jobsearch.demo.repository.UserRolesRepository;
+import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +26,13 @@ public class UserServiceImpl implements UserService
 	private UserRepository userRepository;
 	
 	@Autowired
-	private UserRolesRepository userRolesRepository;
+	private RoleRepository roleRepository;
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, UserRolesRepository userRolesRepository) 
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) 
 	{
 	  this.userRepository = userRepository;
-	  this.userRolesRepository = userRolesRepository;
+	  this.roleRepository = roleRepository;
 	}
 	  
 	public UserServiceImpl() 
@@ -63,9 +64,9 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<User> findAllUsersByRole(Role role) 
+	public List<User> findAllUsersByRole(UserRole role) 
 	{
-		return userRolesRepository.findUserByRole(role);
+		return roleRepository.findUserByRole(role);
 	}
 
 	@Override

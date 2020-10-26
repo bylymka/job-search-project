@@ -2,6 +2,7 @@ package com.andersen.jobsearch.demo.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -70,8 +71,9 @@ public class User
 	@Column(name="phone_num")
 	private String phoneNum;
 	
-	
-	@ElementCollection(targetClass=Role.class) 
-	@Enumerated(EnumType.STRING)
+	@ManyToMany
+	@JoinTable(name="user_roles",
+		joinColumns = @JoinColumn(name="user_id"),
+		inverseJoinColumns = @JoinColumn(name="role_id"))
 	private List<Role> roles;
 }

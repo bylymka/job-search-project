@@ -25,7 +25,6 @@ import com.andersen.jobsearch.demo.service.impl.EmployerServiceImpl;
 import com.andersen.jobsearch.demo.service.impl.UserServiceImpl;
 
 @Controller
-@RequestMapping("/api/v1/registration/")
 public class RegistrationController
 {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -45,17 +44,17 @@ public class RegistrationController
 	}
 
 	@GetMapping("/sign-up/employee")
-	public ModelAndView showRegistrationFormForEmployee(WebRequest request, Model model)
+	public ModelAndView showRegistrationFormForEmployee(Model model)
 	{
-		ModelAndView mav = new ModelAndView("sign-up/employee");
+		ModelAndView mav = new ModelAndView("register-employee");
 		model.addAttribute("employee", new UserRegistrationFormCommand());
 		return mav;
 	}
 	
 	@GetMapping("sign-up/employer")
-	public ModelAndView showRegistrationFormForEmployer(WebRequest request, Model model)
+	public ModelAndView showRegistrationFormForEmployer(Model model)
 	{
-		ModelAndView mav = new ModelAndView("sign-up/employer");
+		ModelAndView mav = new ModelAndView("register-employer");
 		model.addAttribute("employer", new EmployerRegistrationFormCommand());
 		return mav;
 	}
@@ -64,7 +63,7 @@ public class RegistrationController
 	public ModelAndView registerUserAccount(@ModelAttribute("employee") @Valid UserRegistrationFormCommand registrationForm,
 			final BindingResult bindingResult, final Model model) throws EntityAlreadyExistAuthenticationException
 	{
-		ModelAndView mav = new ModelAndView("sign-up/employee");
+		ModelAndView mav = new ModelAndView("error");
 		
 		if(bindingResult.hasErrors())
 			return mav;
@@ -90,7 +89,7 @@ public class RegistrationController
 	public ModelAndView registerEmployer(@ModelAttribute("employer") @Valid EmployerRegistrationFormCommand registrationForm,
 			final BindingResult bindingResult, final Model model) throws EntityAlreadyExistAuthenticationException
 	{
-		ModelAndView mav = new ModelAndView("sign-up/employee");
+		ModelAndView mav = new ModelAndView("sign-up/employer");
 		
 		if(bindingResult.hasErrors())
 			return mav;

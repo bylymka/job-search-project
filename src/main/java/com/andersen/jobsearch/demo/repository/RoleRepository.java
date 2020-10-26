@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
-import com.andersen.jobsearch.demo.entity.UserRoles;
+import com.andersen.jobsearch.demo.entity.UserRole;
 
 
 /**
@@ -15,7 +15,7 @@ import com.andersen.jobsearch.demo.entity.UserRoles;
  */
 
 @Repository
-public interface UserRolesRepository extends JpaRepository<UserRoles, Long>
+public interface RoleRepository extends JpaRepository<Role, Long>
 {
-	List<User> findUserByRole(Role role);
+	List<User> findUserByRole(UserRole role);
 }
