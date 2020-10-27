@@ -1,13 +1,18 @@
 package com.andersen.jobsearch.demo.controller.command;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.*;
 
 import com.andersen.jobsearch.demo.entity.Company;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CompanyRegistrationFormCommand
 {
 	@NotBlank

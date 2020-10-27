@@ -51,11 +51,13 @@ public class RegistrationController
 		return mav;
 	}
 	
-	@GetMapping("sign-up/employer")
+	@GetMapping("/sign-up/employer")
 	public ModelAndView showRegistrationFormForEmployer(Model model)
 	{
 		ModelAndView mav = new ModelAndView("register-employer");
-		model.addAttribute("employer", new EmployerRegistrationFormCommand());
+		model.addAttribute("company", new CompanyRegistrationFormCommand());
+		model.addAttribute("user", new UserRegistrationFormCommand());
+		model.addAttribute("employerPosition", new String());
 		return mav;
 	}
 
@@ -86,7 +88,9 @@ public class RegistrationController
 		
 		
 	@PostMapping("/sign-up/employer")
-	public ModelAndView registerEmployer(@ModelAttribute("employer") @Valid EmployerRegistrationFormCommand registrationForm,
+	public ModelAndView registerEmployer(@ModelAttribute("company") @Valid CompanyRegistrationFormCommand companyRegistrationForm,
+			@ModelAttribute("user") @Valid UserRegistrationFormCommand userRegistrationForm,
+			@ModelAttribute("employerPosition") String employerPosition,
 			final BindingResult bindingResult, final Model model) throws EntityAlreadyExistAuthenticationException
 	{
 		ModelAndView mav = new ModelAndView("sign-up/employer");
@@ -96,12 +100,6 @@ public class RegistrationController
 		
 		try
 		{
-			UserRegistrationFormCommand userRegistrationForm = 
-					((EmployerRegistrationFormCommand) registrationForm).getUserRegistrationFormCommand();
-			
-			CompanyRegistrationFormCommand companyRegistrationForm =
-					((EmployerRegistrationFormCommand) registrationForm).getCompanyRegistrationFormCommand();
-			
 			userRegistrationForm.setPassword(bCryptPasswordEncoder.encode(userRegistrationForm.getPassword()));
 			User user = UserRegistrationFormCommand.getUserFromForm(userRegistrationForm);
 			user.setId(userServiceImpl.registerUser(user).getId());
@@ -109,13 +107,18 @@ public class RegistrationController
 			Company company = CompanyRegistrationFormCommand.getCompanyFromForm(companyRegistrationForm);
 			company.setId(companyServiceImpl.saveCompany(company).getId());
 			
-			Employer employer = EmployerRegistrationFormCommand.getEmployerFromForm(registrationForm);	
+			Employer employer = Employer.builder()
+					.company(company)
+					.user(user)
+					.position(employerPosition)
+					.build();
+			
 			employerServiceImpl.saveEmployer(employer);
 		}
 		catch (EntityAlreadyExistAuthenticationException e)
 		{
-			bindingResult.rejectValue("username", "registrationForm.username", e.getMessage());
-			model.addAttribute("registrationForm", registrationForm);
+			bindingResult.rejectValue("username", "userRegistrationForm.username", e.getMessage());
+			model.addAttribute("registrationForm", userRegistrationForm);
 			return mav;
 		}
 		
