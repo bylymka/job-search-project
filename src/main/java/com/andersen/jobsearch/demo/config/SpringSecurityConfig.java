@@ -54,7 +54,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers("/", "/api/v1/auth/login/", "/api/v1/logout/", "/sign-up/**").permitAll()
+                .and().authorizeRequests().antMatchers("/", "/login/**", "/logout/**", "/sign-up/**").permitAll()
                 .and().authorizeRequests().antMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
         		.and().authorizeRequests().antMatchers("/employee/**").hasRole(UserRole.EMPLOYEE.name())
         		.and().authorizeRequests().antMatchers("/employer/**").hasRole(UserRole.EMPLOYER.name())

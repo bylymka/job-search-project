@@ -20,7 +20,6 @@ import com.andersen.jobsearch.demo.security.filters.JwtAuthenticationFilter;
 import com.andersen.jobsearch.demo.service.impl.UserServiceImpl;
 
 @RestController
-@RequestMapping("/api/v1/auth/")
 public class LoginController
 {
 	@GetMapping("/login")
