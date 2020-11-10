@@ -10,7 +10,7 @@ import com.andersen.jobsearch.demo.entity.Resume;
 
 public interface ResumeService
 {
-	Resume saveResume(Resume resume);
+	/*Resume saveResume(Resume resume);
 	
 	Optional<Resume> modifyResume(Resume resume);
 	
@@ -26,7 +26,7 @@ public interface ResumeService
 	
 	List<Resume> findResumesByProffesionAndLocation(String proffesion, String location);
 	
-	List<Resume> findResumesByCity(String city);
+	List<Resume> findResumesByCity(String city); */
 	
 	
 }

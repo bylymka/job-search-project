@@ -20,8 +20,8 @@ import com.andersen.jobsearch.demo.entity.Resume;
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long>
 {
-	List<Resume> findByEmployee(Employee employee);
+	/*List<Resume> findByEmployee(Employee employee);
 	List<Resume> findByDesiredPositionContainingIgnoreCase(String desiredPosition);
 	List<Resume> findByCityIgnoreCase(String city);
-	List<Resume> findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(String desiredPositon, String location);
+	List<Resume> findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(String desiredPositon, String location);*/
 }

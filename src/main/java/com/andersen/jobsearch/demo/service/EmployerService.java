@@ -5,15 +5,16 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.EmployerRegistrationDto;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 
 public interface EmployerService
 {
-	Optional<Employer> findById(Long id);
+	Employer findById(Long id);
 	
-	Employer saveEmployer(Employer employer) throws EntityAlreadyExistAuthenticationException;
+	Employer registerEmployer(EmployerRegistrationDto employerDto) throws EntityAlreadyExistAuthenticationException;
 	
-	Optional<Employer> modifyEmployer(Employer employer);
+	//Employer modifyCompany(long employerid, EmployerRegistrationDto employerDto);
 }

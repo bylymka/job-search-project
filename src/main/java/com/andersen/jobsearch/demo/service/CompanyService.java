@@ -9,11 +9,11 @@ import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationExc
 
 public interface CompanyService
 {
-	Company findById(Long id);
+	/*Company findById(Long id);
 	
 	Company saveCompany(Company company) throws EntityAlreadyExistAuthenticationException;
 	
 	Company modifyCompany(Company company);
 	
-	//boolean checkCompanyByCodeEDRPOU(Long codeEDRPOU);
+	boolean checkCompanyByCodeEDRPOU(Long codeEDRPOU);*/
 }

@@ -17,7 +17,7 @@ import com.andersen.jobsearch.demo.service.JobService;
 public class JobServiceImpl implements JobService
 {
 	
-	@Autowired
+	/*@Autowired
 	JobRepository jobRepository;
 	
 	public JobServiceImpl(JobRepository jobRepository)
@@ -95,11 +95,11 @@ public class JobServiceImpl implements JobService
 		return jobRepository.findByCompany(company);
 	}
 
-	@Override
-	public List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary)
-	{
-		return jobRepository.findByJobTitleAndLocationAndSalaryGreaterThan(jobTitle, location, minSalary);
-	}
+	//@Override
+	//public List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary)
+	//{
+	//	return jobRepository.findByJobTitleAndLocationAndSalaryGreaterThan(jobTitle, location, minSalary);
+	//}
 
 	@Override
 	public List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location)
@@ -111,5 +111,5 @@ public class JobServiceImpl implements JobService
 	public List<Job> findJobsByEmployementType(EmploymentType type) 
 	{
 		return jobRepository.findByEmploymentType(type);
-	}
+	}*/
 }

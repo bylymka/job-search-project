@@ -12,7 +12,7 @@ import com.andersen.jobsearch.demo.entity.Job;
 
 public interface JobService
 {
-	Job saveJob(Job job);
+	/*Job saveJob(Job job);
 	
 	Optional<Job> modifyJob(Job job);
 	
@@ -24,15 +24,15 @@ public interface JobService
 	
 	List<Job> findJobsByEmployer(Employer employer);
 	
-	List<Job> findJobsByTitle(String jobTitle);
+	//List<Job> findJobsByTitle(String jobTitle);
 	
 	List<Job> findJobsByLocation(String location);
 	
 	List<Job> findJobsByCompany(Company company);
 	
-	List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary);
+	//List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary);
 	
 	List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location);
 	
-	List<Job> findJobsByEmployementType(EmploymentType type);
+	List<Job> findJobsByEmployementType(EmploymentType type); */
 }

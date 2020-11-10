@@ -11,11 +11,11 @@ import com.andersen.jobsearch.demo.entity.UserRole;
 
 
 /**
- * Repository Interface for {@link UserRoles} class.
+ * Repository Interface for {@link Role} class.
  */
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>
+public interface RoleRepository extends JpaRepository<Role, Integer>
 {
-	List<User> findUserByRole(UserRole role);
+	Role findByRole(UserRole role);
 }

@@ -14,7 +14,7 @@ import com.andersen.jobsearch.demo.service.CompanyService;
 public class CompanyServiceImpl implements CompanyService
 {
 
-	@Autowired
+	/*@Autowired
 	CompanyRepository companyRepository;
 	
 	public CompanyServiceImpl(CompanyRepository companyRepository)
@@ -52,5 +52,5 @@ public class CompanyServiceImpl implements CompanyService
 		companyRepository.save(companyFromDb);
 		
 		return companyFromDb;
-	}
+	}*/
 }

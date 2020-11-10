@@ -11,5 +11,5 @@ import com.andersen.jobsearch.demo.entity.Company;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long>
 {
-	boolean existsCompanyByNameAndCodeEDRPOU(String name, Long codeEDRPOU);
+	//Company findCompanyByNameAndCodeEDRPOU(String name, Long codeEDRPOU);
 }

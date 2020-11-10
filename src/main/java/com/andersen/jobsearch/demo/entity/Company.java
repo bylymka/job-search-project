@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.andersen.jobsearch.demo.controller.command.CompanyRegistrationFormCommand;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -44,22 +43,22 @@ public class Company
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	
-	@Column(name="Name")
+	@Column(name="name")
 	private String name;
 	
-	@Column(name="CodeEDRPOU")
+	@Column(name="code_EDRPOU")
 	private Long codeEDRPOU;
 	
-	@Column(name="Address")
+	@Column(name="address")
 	private String address;
 	
-	@Column(name="Description")
+	@Column(name="description")
 	private String description;
 	
-	@Column(name="Industry")
+	@Column(name="industry")
 	private String industry;
 	
-	@Column(name="EmployeesNum")
+	@Column(name="employees_num")
 	private Integer employeesNum;
 	
 	//@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

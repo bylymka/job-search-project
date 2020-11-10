@@ -25,14 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long>
 	 * @return user with such username and password
 	 */
 	Optional<User> findUserByUsernameAndPassword(String username, String password);
-	
-	/**
-	 * Checks is user with such username exist
-	 * @param username
-	 * @return
-	 */
-	Boolean existsUserByUsername(String username);
-	
+
 	/**
 	 * Finds user by username
 	 * @param username

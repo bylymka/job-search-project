@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Role;
@@ -48,43 +47,14 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User findByUsername(String username) 
+	public Optional<User> findByUsername(String username) 
 	{
-		return userRepository.findByUsername(username).
-				orElseThrow(() -> new IllegalArgumentException("The user with username " + username + " does not exist."));
+		return userRepository.findByUsername(username);
 	}
 
-	@Override
-	public User registerUser(User user) throws EntityAlreadyExistAuthenticationException 
-	{
-		if(userRepository.existsUserByUsername(user.getUsername()))
-			throw new EntityAlreadyExistAuthenticationException(
-					"User with username " + user.getUsername() + " already exists.");
-		return userRepository.save(user);
-	}
-
-	@Override
+	/*@Override
 	public List<User> findAllUsersByRole(UserRole role) 
 	{
-		return roleRepository.findUserByRole(role);
-	}
-
-	@Override
-	public User modifyUser(User user)
-	{
-		User userFromDb = userRepository.findById(user.getId())
-				.orElseThrow(() -> new IllegalArgumentException("The user with id " + user.getId() + " does not exist."));
-						
-		userFromDb.setId(user.getId());
-		userFromDb.setPassword(user.getPassword());
-		userFromDb.setUsername(user.getUsername());
-		userFromDb.setFirstName(user.getFirstName());
-		userFromDb.setLastName(user.getLastName());
-		userFromDb.setEmail(user.getEmail());
-		userFromDb.setPhoneNum(user.getPhoneNum());
-		
-		userRepository.save(userFromDb);
-		
-		return userFromDb;
-	}
+		return roleRepository.findByRole(role);
+	}*/
 }

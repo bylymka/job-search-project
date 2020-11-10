@@ -23,7 +23,7 @@ import com.andersen.jobsearch.demo.entity.JobStatus;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long>
 {
-	List<Job> findByEmployer(Employer employer);
+	/*List<Job> findByEmployer(Employer employer);
 	
 	List<Job> findByJobTitleContainingIgnoreCase(String jobTitle);
 	
@@ -31,9 +31,9 @@ public interface JobRepository extends JpaRepository<Job, Long>
 	
 	List<Job> findByCompany(Company company);
 	
-	List<Job> findByJobTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary);
+	List<Job> findByJobTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int salary);
 	
 	List<Job> findByJobTitleAndLocation(String jobTitle, String location);
 	
-	List<Job> findByEmploymentType(EmploymentType type);
+	List<Job> findByEmploymentType(EmploymentType type); */
 }
