@@ -22,7 +22,8 @@ public class LoginController
 {
 	@RequestMapping("/login")
 	public String loginHandler(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout, Model model) {
+			@RequestParam(value = "logout", required = false) String logout, Model model
+	{
 		String errorMessage = null;
 		if (error != null)
 			errorMessage = "Username or Password is incorrect !!";
@@ -35,12 +36,13 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response)
+	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
 		if (auth != null)
-		{
 			new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
+		
 		return "redirect:/login?logout=true";
 	}
 }
