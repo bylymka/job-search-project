@@ -3,6 +3,7 @@ package com.andersen.jobsearch.demo.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,20 +24,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@RequestMapping()
 public class RegistrationController
 {
-	//private BCryptPasswordEncoder encoder;
 	private EmployerService employerService;
 	private EmployeeService employeeService;
 	
 	@Autowired
 	public RegistrationController(EmployerService employerService,
-			EmployeeService employeeService) //BCryptPasswordEncoder encoder)
+			EmployeeService employeeService)
 	{
 		this.employerService = employerService;
 		this.employeeService = employeeService;
-		//this.encoder = encoder;
 	}
 
 	@GetMapping("/sign-up/employee")
@@ -66,7 +64,6 @@ public class RegistrationController
 		
 		try
 		{
-			//dto.setPassword(encoder.encode(dto.getPassword()));
 			employeeService.registerEmployee(dto);
 			log.info("Employee with username: " + dto.getUsername() + "was successfully registered.");
 			return "login";
@@ -87,12 +84,11 @@ public class RegistrationController
 		{
 			log.info("Employer with username: " + dto.getUsername() + 
 					"was not registered. Binding result has errors");
-			return "employer/register-employee";
+			return "employer/register-employer";
 		}
 		
 		try
 		{
-			//dto.setPassword(encoder.encode(dto.getPassword()));
 			employerService.registerEmployer(dto);
 			log.info("Employer with username: " + dto.getUsername() + "was successfully registered.");
 			return "login"; 
@@ -101,7 +97,7 @@ public class RegistrationController
 		{
 			log.info("Employer with username: " + dto.getUsername() + 
 					"was not registered. User with such username already exists");
-			return "employer/register-employee";
+			return "employer/register-employer";
 		}
 	}
 	

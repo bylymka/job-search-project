@@ -1,20 +1,23 @@
 package com.andersen.jobsearch.demo.service.impl;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andersen.jobsearch.demo.dto.EmployeeRegistrationDto;
 import com.andersen.jobsearch.demo.dto.EmployerRegistrationDto;
 import com.andersen.jobsearch.demo.entity.Company;
-import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Employer;
+import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.CompanyRepository;
 import com.andersen.jobsearch.demo.repository.EmployerRepository;
+import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.EmployerService;
 
@@ -22,18 +25,24 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 public class EmployerServiceImpl implements EmployerService
 {
-	EmployerRepository employerRepository;
-	UserRepository userRepository;
-	CompanyRepository companyRepository;
+	private EmployerRepository employerRepository;
+	private UserRepository userRepository;
+	private CompanyRepository companyRepository;
+	private RoleRepository roleRepository;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
 	public EmployerServiceImpl(EmployerRepository employerRepository, UserRepository userRepository,
-			CompanyRepository companyRepository)
+			CompanyRepository companyRepository, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository)
 	{
 		this.employerRepository = employerRepository;
 		this.userRepository = userRepository;
 		this.companyRepository = companyRepository;
+		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
@@ -44,17 +53,22 @@ public class EmployerServiceImpl implements EmployerService
 	}
 
 	@Override
-	@Transactional
 	public Employer registerEmployer(EmployerRegistrationDto employerDto) throws EntityAlreadyExistAuthenticationException
 	{
-		if(Optional.ofNullable(userRepository.findByUsername(employerDto.getUsername())) == null)
+		if(userRepository.existsUserByUsername(employerDto.getUsername()))
 		{
 			throw new EntityAlreadyExistAuthenticationException(
 					"User with username " + employerDto.getUsername() + " already exists.");
 		}
 		
 		Employer employer = EmployerRegistrationDto.fromDto(employerDto);
-		
+				
+		Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.getOne(3)); // 3 - EPLOYER_ROLE
+        log.info("Added role for user with username: " + employerDto.getUsername());
+        employer.getUser().setRoles(roles);
+        employer.getUser().setPassword(bCryptPasswordEncoder.encode(employerDto.getPassword()));
+        
 		User user = userRepository.save(employer.getUser());
 		employer.getUser().setId(user.getId());
 		log.info("In EmployerService: registerEmployer(). Registered user with username: " + employer.getUser().getUsername());

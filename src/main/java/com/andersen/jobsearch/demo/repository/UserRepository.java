@@ -32,4 +32,11 @@ public interface UserRepository extends JpaRepository<User, Long>
 	 * @return user with such username
 	 */
 	Optional<User> findByUsername(String username);
+	
+	/**
+	 * Checks users existing
+	 * @param username
+	 * @return
+	 */
+	boolean existsUserByUsername(String username);
 }

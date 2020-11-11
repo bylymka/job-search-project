@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeRegistrationDto
-{
+{	
 	@NotBlank
 	@Size(min = 4, max = 45)
 	private String username;

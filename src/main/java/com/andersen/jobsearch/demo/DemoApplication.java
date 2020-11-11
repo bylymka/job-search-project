@@ -25,10 +25,4 @@ public class DemoApplication extends SpringBootServletInitializer
 	{
        	return application.sources(DemoApplication.class);
 	}
-	
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder()
-	{
-		return new BCryptPasswordEncoder();
-	}
 }

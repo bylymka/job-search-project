@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
-import com.andersen.jobsearch.demo.entity.UserRole;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.repository.RoleRepository;
@@ -47,13 +46,14 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public Optional<User> findByUsername(String username) 
+	public User findByUsername(String username) 
 	{
-		return userRepository.findByUsername(username);
+		return userRepository.findByUsername(username).
+				orElseThrow(() -> new IllegalArgumentException("The user with id " + username + " does not exist."));
 	}
 
 	/*@Override
-	public List<User> findAllUsersByRole(UserRole role) 
+	public List<User> findAllUsersByRole(String role) 
 	{
 		return roleRepository.findByRole(role);
 	}*/
