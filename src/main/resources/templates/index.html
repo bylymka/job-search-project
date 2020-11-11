@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Bootstrap Example</title>
+<title>Jobbom</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/style.css}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -11,7 +13,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="page-background">
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -27,19 +29,18 @@
 			</div>
 			
 			<div class="pull-right">
-					<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Sign Up</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							Login</a></li>
-					</ul>
-				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/sign-up/employee}" th:text="#{app.register}"><span class="glyphicon glyphicon-user"></span>
+						Sign Up</a></li>
+					<li><a th:href="@{/login}"  th:text="#{app.login}"><span class="glyphicon glyphicon-log-in"></span>
+						Sign In</a></li>
+					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>						
+					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>				
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<br />
 	<br />
-	
-	<img src="images/home.png" alt="home">
-	
 </body>
 </html>

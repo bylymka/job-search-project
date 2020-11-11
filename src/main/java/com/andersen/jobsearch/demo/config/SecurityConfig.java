@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
 	@Autowired
 	UserDetailsService userDetailsService;
@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/", "/login").permitAll()
+				.antMatchers("/", "/login", "/img/**").permitAll()
 				.antMatchers("/sign-up/**").not().fullyAuthenticated()
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				.antMatchers("/employee/**").hasRole("EMPLOYEE")
