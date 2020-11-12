@@ -26,17 +26,20 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService
 {
-	@Autowired
-	EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
+	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	RoleRepository roleRepository;
-	
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
+	public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRepository userRepository,
+			RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+	{
+		this.employeeRepository = employeeRepository;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 
 	@Override
 	public Employee findById(Long id) 
@@ -67,16 +70,4 @@ public class EmployeeServiceImpl implements EmployeeService
 		log.info("User with username: " + user.getUsername() + "was registered");
 		return employeeRepository.save(employee);
 	}
-
-	/*@Override
-	public Employee modifyEmployee(long id, EmployeeRegistrationDto employeeDto) 
-	{
-		Employee employeeFromDb = employeeRepository.getOne(id);
-		Employee updatedEmployee = EmployeeRegistrationDto.fromDto(employeeDto);
-		
-		employeeFromDb.setUser(updatedEmployee.getUser());
-		
-		employeeRepository.save(employeeFromDb);
-		return employeeFromDb;
-	}*/
 }

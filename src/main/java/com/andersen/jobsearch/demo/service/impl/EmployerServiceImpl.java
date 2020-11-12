@@ -81,16 +81,17 @@ public class EmployerServiceImpl implements EmployerService
 		return employerRepository.save(employer);
 	}
 
-	/*@Override
-	public Employer modifyEmployer(long id, EmployerRegistrationDto employerDto) 
+	@Override
+	public Employer updateEmployerPosition(String updatedEmployerPosition, String employerUsername) 
 	{
-		Employer employerFromDb = employerRepository.getOne(id);
-		Employer updatedEmployer = EmployerRegistrationDto.fromDto(employerDto);
-		User updatedUser;
-		Company updatedCompany()
-		
-		userRepository.save(entity)
-		employerRepository.save(employerFromDb);
-		return employerFromDb;
-	}*/
+		if(userRepository.existsUserByUsername(employerUsername))
+		{
+			User user = userRepository.findByUsername(employerUsername).get();
+			Employer employer = employerRepository.findByUser(user);
+			employer.setPosition(updatedEmployerPosition);
+			return employerRepository.save(employer);
+		}
+		else
+			return null;
+	}
 }

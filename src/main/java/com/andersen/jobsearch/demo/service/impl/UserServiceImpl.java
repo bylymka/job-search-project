@@ -6,11 +6,14 @@ import java.util.Optional;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.UserDto;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
+import com.andersen.jobsearch.demo.exception.PasswordException;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.service.UserService;
@@ -18,13 +21,12 @@ import com.andersen.jobsearch.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService
 {	
-	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
 	private RoleRepository roleRepository;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) 
@@ -52,9 +54,33 @@ public class UserServiceImpl implements UserService
 				orElseThrow(() -> new IllegalArgumentException("The user with id " + username + " does not exist."));
 	}
 
-	/*@Override
-	public List<User> findAllUsersByRole(String role) 
+	@Override
+	public User modifyUser(UserDto userDto, String username) 
 	{
-		return roleRepository.findByRole(role);
-	}*/
+		User userFromDb = findByUsername(username);
+		userFromDb.setUsername(userDto.getUsername());
+		userFromDb.setFirstName(userDto.getFirstName());
+		userFromDb.setLastName(userDto.getLastName());
+		userFromDb.setEmail(userDto.getEmail());
+		userFromDb.setPhoneNum(userDto.getPhoneNum());
+		return userRepository.save(userFromDb);
+	}
+
+	@Override
+	public void updatePassword(String username, String oldPassword, String newPassword) throws PasswordException
+	{
+		String encodedOldPassword = bCryptPasswordEncoder.encode(oldPassword);
+		User user = findByUsername(username);
+		
+		if(encodedOldPassword == user.getPassword())
+		{
+			user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+			userRepository.save(user);
+		}
+		else
+		{
+			log.info("User enetered wrong password. Password in DB and entered password are not equals");
+			throw new PasswordException("Old password and new password are not equals");
+		}	
+	}
 }

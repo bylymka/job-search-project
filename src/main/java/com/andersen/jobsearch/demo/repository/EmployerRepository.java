@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Role;
+import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.entity.Employer;
 
 /**
@@ -18,5 +19,5 @@ import com.andersen.jobsearch.demo.entity.Employer;
 @Repository
 public interface EmployerRepository extends JpaRepository<Employer, Long>
 {	
-
+	Employer findByUser(User user);
 }

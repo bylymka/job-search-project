@@ -6,41 +6,60 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.ResumeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Resume;
+import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.repository.EmployeeRepository;
 import com.andersen.jobsearch.demo.repository.ResumeRepository;
+import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.ResumeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ResumeServiceImpl implements ResumeService
 {
-	@Autowired
 	private ResumeRepository resumeRepository;
+	private UserRepository userRepository;
+	private EmployeeRepository employeeRepository;
 	
-	
-	public ResumeServiceImpl(ResumeRepository resumeRepository)
+	@Autowired
+	public ResumeServiceImpl(ResumeRepository resumeRepository, UserRepository userRepository, EmployeeRepository employeeRepository)
 	{
 		this.resumeRepository = resumeRepository;
+		this.userRepository = userRepository;
+		this.employeeRepository = employeeRepository;
 	}
 
 	@Override
-	public Resume saveResume(Resume resume) 
+	public Resume saveResume(ResumeDto resumeDto, String employeeUsername) 
 	{
+		User user = userRepository.findByUsername(employeeUsername).
+				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
+		log.info("The employee with username " + employeeUsername + " does not exist.");
+		
+		Employee employee = employeeRepository.findByUser(user);
+		Resume resume = ResumeDto.fromDto(resumeDto);
+		resume.setEmployee(employee);
+		
 		return resumeRepository.save(resume);
 	}
 
 	@Override
-	public Optional<Resume> modifyResume(Resume resume) 
+	public Resume modifyResume(ResumeDto resumeDto, Long resumeId) 
 	{
-		Optional<Resume> resumeFromDb = resumeRepository.findById(resume.getId());
-		resumeFromDb.get().setId(resume.getId());
-		resumeFromDb.get().setCity(resume.getCity());
-		resumeFromDb.get().setDesiredPosition(resume.getDesiredPosition());
-		resumeFromDb.get().setEmployee(resume.getEmployee());
-		resumeFromDb.get().setSkills(resume.getSkills());
-		resumeFromDb.get().setWorkExperience(resume.getWorkExperience());
-		resumeRepository.save(resumeFromDb.get());
-		return resumeFromDb;
+		Resume resume = resumeRepository.findById(resumeId).
+				orElseThrow(() -> new IllegalArgumentException("The resume with id " + resumeId + " does not exist."));
+		log.info("The resume with id " + resumeId + " does not exist.");
+		
+		resume.setDesiredPosition(resumeDto.getDesiredPosition());
+		resume.setCity(resumeDto.getCity());
+		resume.setSkills(resumeDto.getSkills());
+		resume.setWorkExperience(resumeDto.getWorkExperience());
+		
+		return resumeRepository.save(resume);
 	}
 
 	@Override
@@ -52,26 +71,34 @@ public class ResumeServiceImpl implements ResumeService
 	@Override
 	public Resume getResumeById(Long resumeId) 
 	{
-		return resumeRepository.getOne(resumeId);
+		Resume resume =  resumeRepository.findById(resumeId).
+				orElseThrow(() -> new IllegalArgumentException("The resume with id " + resumeId + " does not exist."));
+		log.info("The resume with id " + resumeId + " does not exist.");
+		
+		return resume;
 	}
 
 	@Override
-	public List<Resume> findResumesByEmployee(Employee employee) 
+	public List<Resume> findResumesByEmployee(String employeeUsername) 
 	{
+		User user = userRepository.findByUsername(employeeUsername).
+				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
+		log.info("The employee with username " + employeeUsername + " does not exist.");
+		
+		Employee employee = employeeRepository.findByUser(user);
 		return resumeRepository.findByEmployee(employee);
 	}
 
 	@Override
 	public List<Resume> findResumesByProffesion(String proffesion) 
 	{
-		return findResumesByProffesion(proffesion);
+		return resumeRepository.findByDesiredPositionContainingIgnoreCase(proffesion);
 	}
 
 	@Override
-	public List<Resume> findResumesByProffesionAndLocation(String proffesion, String location)
+	public List<Resume> findResumesByProffesionAndCity(String proffesion, String city) 
 	{
-		return resumeRepository.
-				findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, location);
+		return resumeRepository.findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, city);
 	}
 
 	@Override

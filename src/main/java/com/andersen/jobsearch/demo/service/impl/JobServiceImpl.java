@@ -43,7 +43,7 @@ public class JobServiceImpl implements JobService
 		
 		log.info("The employer with username " + employerUsername + " does not exist.");
 		
-		Employer employer = employerRepository.getOne(user.getId());
+		Employer employer = employerRepository.findByUser(user);
 		Job job =  JobDto.fromDto(jobDto);
 		job.setEmployer(employer);
 		job.setCompany(employer.getCompany());

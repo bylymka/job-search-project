@@ -5,28 +5,27 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.ResumeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Resume;
 
 public interface ResumeService
 {
-	Resume saveResume(Resume resume);
+	Resume saveResume(ResumeDto resumeDto, String employeeUsername);
 	
-	Optional<Resume> modifyResume(Resume resume);
+	Resume modifyResume(ResumeDto resumeDto, Long resumeId);
 	
 	void deleteResume(Long resumeId);
 	
 	Resume getResumeById(Long resumeId);
 	
-	List<Resume> findResumesByEmployee(Employee employee);
+	List<Resume> findResumesByEmployee(String employeeUsername);
 	
 	List<Resume> findResumesByProffesion(String proffesion);
 	
 	//List<Resume> findResumesByKeyWords(String keyWords);
 	
-	List<Resume> findResumesByProffesionAndLocation(String proffesion, String location);
+	List<Resume> findResumesByProffesionAndCity(String proffesion, String city);
 	
 	List<Resume> findResumesByCity(String city);
-	
-	
 }
