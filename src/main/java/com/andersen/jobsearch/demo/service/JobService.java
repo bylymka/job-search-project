@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.JobDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.EmploymentType;
@@ -12,27 +13,25 @@ import com.andersen.jobsearch.demo.entity.Job;
 
 public interface JobService
 {
-	/*Job saveJob(Job job);
+	Job saveJob(JobDto job, String employerUsername);
 	
-	Optional<Job> modifyJob(Job job);
+	Job modifyJob(JobDto jobDto, Long jobId);
 	
 	void deleteJob(Long jobId);
-	
-	Optional<Job> getJobById(Long jobId);
 	
 	List<Job> getAllJobs();
 	
 	List<Job> findJobsByEmployer(Employer employer);
 	
-	//List<Job> findJobsByTitle(String jobTitle);
+	List<Job> findJobsByTitle(String jobTitle);
 	
 	List<Job> findJobsByLocation(String location);
 	
 	List<Job> findJobsByCompany(Company company);
 	
-	//List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary);
+	//List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int salary);
 	
 	List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location);
 	
-	List<Job> findJobsByEmployementType(EmploymentType type); */
+	List<Job> findJobsByEmploymentType(EmploymentType type);
 }

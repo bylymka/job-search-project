@@ -15,6 +15,4 @@ public interface EmployerService
 	Employer findById(Long id);
 	
 	Employer registerEmployer(EmployerRegistrationDto employerDto) throws EntityAlreadyExistAuthenticationException;
-	
-	//Employer modifyCompany(long employerid, EmployerRegistrationDto employerDto);
 }

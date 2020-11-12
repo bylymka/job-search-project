@@ -14,7 +14,7 @@ import com.andersen.jobsearch.demo.service.CompanyService;
 public class CompanyServiceImpl implements CompanyService
 {
 
-	/*@Autowired
+	@Autowired
 	CompanyRepository companyRepository;
 	
 	public CompanyServiceImpl(CompanyRepository companyRepository)
@@ -31,9 +31,9 @@ public class CompanyServiceImpl implements CompanyService
 	@Override
 	public Company saveCompany(Company company) throws EntityAlreadyExistAuthenticationException 
 	{
-		if(companyRepository.existsCompanyByNameAndCodeEDRPOU(company.getName(), company.getCodeEDRPOU()))
+		/*if(companyRepository.existsCompanyByNameAndCodeEDRPOU(company.getName(), company.getCodeEDRPOU()))
 				throw new EntityAlreadyExistAuthenticationException(
-						"Company with name " + company.getName() + " and code EDRPOU " + company.getCodeEDRPOU() + " already exists.");
+						"Company with name " + company.getName() + " and code EDRPOU " + company.getCodeEDRPOU() + " already exists.");*/
 		return companyRepository.save(company);
 	}
 
@@ -52,5 +52,5 @@ public class CompanyServiceImpl implements CompanyService
 		companyRepository.save(companyFromDb);
 		
 		return companyFromDb;
-	}*/
+	}
 }

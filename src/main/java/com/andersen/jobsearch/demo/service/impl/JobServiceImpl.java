@@ -1,68 +1,77 @@
 package com.andersen.jobsearch.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.andersen.jobsearch.demo.dto.JobDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.EmploymentType;
 import com.andersen.jobsearch.demo.entity.Job;
+import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.repository.EmployerRepository;
 import com.andersen.jobsearch.demo.repository.JobRepository;
+import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.JobService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class JobServiceImpl implements JobService
 {
+	private JobRepository jobRepository;
+	private EmployerRepository employerRepository;
+	private UserRepository userRepository;
 	
-	/*@Autowired
-	JobRepository jobRepository;
-	
-	public JobServiceImpl(JobRepository jobRepository)
+	@Autowired
+	public JobServiceImpl(JobRepository jobRepository, EmployerRepository employerRepository, UserRepository userRepository)
 	{
 		this.jobRepository = jobRepository;
+		this.employerRepository = employerRepository;
+		this.userRepository = userRepository;
 	}
 
+	 
 	@Override
-	public Job saveJob(Job job)
+	public Job saveJob(JobDto jobDto, String employerUsername) 
 	{
+		User user = userRepository.findByUsername(employerUsername).
+				orElseThrow(() -> new IllegalArgumentException("The employer with username " + employerUsername + " does not exist."));
+		
+		log.info("The employer with username " + employerUsername + " does not exist.");
+		
+		Employer employer = employerRepository.getOne(user.getId());
+		Job job =  JobDto.fromDto(jobDto);
+		job.setEmployer(employer);
+		job.setCompany(employer.getCompany());
+		
 		return jobRepository.save(job);
 	}
-
+	
 	@Override
-	public Optional<Job> modifyJob(Job job) 
+	public Job modifyJob(JobDto jobDto, Long jobId) 
 	{
-		Optional<Job> jobFromDb = jobRepository.findById(job.getId());
+		Job jobFromDb = jobRepository.getOne(jobId);
 		
-		jobFromDb.get().setId(job.getId());
-		jobFromDb.get().setJobTitle(job.getJobTitle());
-		jobFromDb.get().setCompany(job.getCompany());
-		jobFromDb.get().setDescription(job.getDescription());
-		jobFromDb.get().setEmployer(job.getEmployer());
-		jobFromDb.get().setEmploymentType(job.getEmploymentType());
-		jobFromDb.get().setIndustry(job.getIndustry());
-		jobFromDb.get().setLocation(job.getLocation());
-		jobFromDb.get().setPostedOn(job.getPostedOn());
-		jobFromDb.get().setSalary(job.getSalary());
-		jobFromDb.get().setSkills(job.getSkills());
-		jobFromDb.get().setStatus(job.getStatus());
+		jobFromDb.setJobTitle(jobDto.getJobTitle());
+		jobFromDb.setDescription(jobDto.getDescription());
+		jobFromDb.setIndustry(jobDto.getIndustry());
+		jobFromDb.setLocation(jobDto.getLocation());
+		jobFromDb.setSkills(jobDto.getSkills());
+		jobFromDb.setSalary(jobDto.getSalary());
+		jobFromDb.setEmploymentType(EmploymentType.valueOf(jobDto.getEmploymentType().replace('-', '_').toUpperCase()));
 		
-		jobRepository.save(jobFromDb.get());
-		return jobFromDb;
+		return jobRepository.save(jobFromDb);
 	}
-
+	
 	@Override
-	public void deleteJob(Long jobId)
+	public void deleteJob(Long jobId) 
 	{
-		jobRepository.deleteById(jobId);
-	}
-
-	@Override
-	public Optional<Job> getJobById(Long jobId)
-	{
-		return jobRepository.findById(jobId);
+		if(jobRepository.existsById(jobId))
+			jobRepository.deleteById(jobId);
 	}
 
 	@Override
@@ -95,21 +104,15 @@ public class JobServiceImpl implements JobService
 		return jobRepository.findByCompany(company);
 	}
 
-	//@Override
-	//public List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int minSalary)
-	//{
-	//	return jobRepository.findByJobTitleAndLocationAndSalaryGreaterThan(jobTitle, location, minSalary);
-	//}
-
 	@Override
-	public List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location)
+	public List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location) 
 	{
 		return jobRepository.findByJobTitleAndLocation(jobTitle, location);
 	}
 
 	@Override
-	public List<Job> findJobsByEmployementType(EmploymentType type) 
+	public List<Job> findJobsByEmploymentType(EmploymentType type) 
 	{
 		return jobRepository.findByEmploymentType(type);
-	}*/
+	}
 }

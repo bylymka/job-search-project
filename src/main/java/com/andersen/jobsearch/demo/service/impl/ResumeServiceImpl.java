@@ -14,8 +14,9 @@ import com.andersen.jobsearch.demo.service.ResumeService;
 @Service
 public class ResumeServiceImpl implements ResumeService
 {
-	/*@Autowired
-	ResumeRepository resumeRepository;
+	@Autowired
+	private ResumeRepository resumeRepository;
+	
 	
 	public ResumeServiceImpl(ResumeRepository resumeRepository)
 	{
@@ -77,5 +78,5 @@ public class ResumeServiceImpl implements ResumeService
 	public List<Resume> findResumesByCity(String city) 
 	{
 		return resumeRepository.findByCityIgnoreCase(city);
-	}*/
+	}
 }

@@ -62,18 +62,19 @@ CREATE TABLE  IF NOT EXISTS resumes(
 	PRIMARY KEY(id),
 	FOREIGN KEY(employee_id) REFERENCES employees(id)
 );
+
 CREATE TABLE IF NOT EXISTS jobs(
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	job_title VARCHAR(255) NOT NULL,
-	desciption VARCHAR(2000) NOT NULL,
+	desciption VARCHAR(2000),
 	posted_on DATE NOT NULL,
 	employer_id BIGINT NOT NULL,
 	company_id BIGINT NOT NULL,
 	industry VARCHAR(255) NOT NULL,
-	status ENUM('active', 'non-active') NOT NULL,
+	status ENUM('active', 'non-active') DEFAULT 'active',
 	location VARCHAR(255) NOT NULL,
 	skills VARCHAR(2000) NOT NULL,
-	salary BIGINT,
+	salary INT,
 	employment_type ENUM('full_time_job', 'part_time_job', 'remote_job', 'intership'),
 	PRIMARY KEY(id),
 	FOREIGN KEY(employer_id) REFERENCES employers(id)

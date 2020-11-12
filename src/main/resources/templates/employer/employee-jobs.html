@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Jobbom</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body class="page">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="#" th:text="#"><span class="glyphicon glyphicon-search"></span>
+						Find resumes</a></li>
+					<li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-plus"></span>
+						Post a job</a></li>
+          <li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-list"></span>
+      			My jobs</a></li>
+          <li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-user"></span>
+  					Account</a></li>
+
+					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br/><br/><br/><br/>
+
+  <h1 style="text-align:center;">Jobs and applications</h1>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-2"></div>
+
+      <div class="col-md-8" style = "background-color:white; height: 150px; width:800px; margin-top: 20px;">
+        <div id="job" >
+                   <div th:each="employeeJobs : ${job}">
+                       <div class="portfolio-wrapper">
+                       <a rel="group" title=""  th:href="'/produto?id='+${produto.id}">
+                           <img th:src="'images/'+${produto.id}+'.jpg'" alt=""  class="img-responsive caixa-img-produto" />
+                       </a>
+                           <div class="label">
+                               <div class="label-text">
+                                   <span class="text-category" th:text="${produto.nome}"></span>
+                               </div>
+                               <div class="label-bg"></div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+      </div>
+
+      <div class="col-md-2"></div>
+
+    </div>
+  </div>
+
+  </body>
+</html>
