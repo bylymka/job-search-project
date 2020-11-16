@@ -19,12 +19,12 @@
 
 			<div class="pull-right">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a th:href="@{/employer/dashboard}"><span class="glyphicon glyphicon-search"></span> Find resumes</a></li>
-					<li><a th:href="@{/employer/post-job}"><span class="glyphicon glyphicon-plus"></span> Post a job</a></li>
-          			<li><a th:href="@{/employer/get-jobs}"><span class="glyphicon glyphicon-list"></span> My jobs</a></li>
-       				<li><a th:href="@{/employer/account}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
-					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-search"></span> Find vacancies</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-plus"></span> Post resume</a></li>
+          			<li><a href="#"><span class="glyphicon glyphicon-list"></span> My resumes</a></li>
+       				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a href="#"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a href="#"><img th:src="@{/img/rus.png}"> Russian</a></li>
 				</ul>
 			</div>
 			
@@ -32,11 +32,11 @@
 	</nav><br/><br/><br/><br/>
 	
 	<div class="container">
-		<div class="row">s
+		<div class="row">
 			<div class="col-md-8 col-md-offset-2 colorful-block">
 			
 				<h2 align="center">Edit info about user:</h2><br/><br/>
-				<form th:action="@{/employer/account/edit/user/{id}(id = ${employerId})}" method="post">
+				<form th:action="@{/employee/account/edit/user/{id}(id = ${userId})}" method="post">
 
 					<div class="form-group">
 						<label class="control-label" for="username" 
@@ -71,13 +71,6 @@
 							th:text="#{user.phone_num}">Phone Number</label>
 						<input id="phoneNum" th:value="${userDto.phoneNum}" class="form-control" 
 							th:field="${userDto.phoneNum}" required autofocus="autofocus">
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="employerPosition" 
-							th:text="#{employer.position}">Your position in company</label>
-						<input id="employerPosition" th:value="${position}" class="form-control" 
-							th:field="${position}" required autofocus="autofocus">
 					</div>
 					
 					<div class="form-group">

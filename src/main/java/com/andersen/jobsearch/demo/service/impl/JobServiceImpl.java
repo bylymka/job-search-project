@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.JobDto;
+import com.andersen.jobsearch.demo.dto.FullJobDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Job;
@@ -80,52 +81,45 @@ public class JobServiceImpl implements JobService
 	{
 		return jobRepository.findAll();
 	}
-	
-	public List<JobDto> getListOfJobsDto(List<Job> jobs)
-	{
-		List<JobDto> jobsDto = new ArrayList<>();
-		jobs.forEach(job -> jobsDto.add(JobDto.toDto(job)));
-		return jobsDto;
-	}
 
 	@Override
-	public List<JobDto> findJobsByEmployer(String employerUsername) 
+	public List<Job> findJobsByEmployer(String employerUsername) 
 	{
 		User user = userRepository.findByUsername(employerUsername).
 				orElseThrow(() -> new IllegalArgumentException("The employer with username " + employerUsername + " does not exist."));
 		
 		Employer employer = employerRepository.findByUser(user);
-		return getListOfJobsDto(jobRepository.findByEmployer(employer));
+		return jobRepository.findByEmployer(employer);
 	}
 
 	@Override
-	public List<JobDto> findJobsByTitle(String jobTitle) 
+	public List<Job> findJobsByTitle(String jobTitle) 
 	{
-		return getListOfJobsDto(jobRepository.findByJobTitleContainingIgnoreCase(jobTitle));
+		return jobRepository.findByJobTitleContainingIgnoreCase(jobTitle);
 	}
 
 	@Override
-	public List<JobDto> findJobsByLocation(String location) 
+	public List<Job> findJobsByCity(String city) 
 	{
-		return getListOfJobsDto(jobRepository.findByLocation(location));
+		return jobRepository.findByLocationIgnoreCase(city);
 	}
 
 	@Override
-	public List<JobDto> findJobsByCompany(String companyName) 
+	public List<Job> findJobsByCompany(String companyName) 
 	{
 		Company company = companyRepository.findByName(companyName);
-		return getListOfJobsDto(jobRepository.findByCompany(company));
+		return jobRepository.findByCompany(company);
 	}
 
 	@Override
-	public List<JobDto> findJobsByJobTitleAndLocation(String jobTitle, String location) 
+	public List<Job> findJobsByProffesionAndCity(String proffesion, String city) 
 	{
-		return getListOfJobsDto(jobRepository.findByJobTitleAndLocation(jobTitle, location));
+		return jobRepository.findByJobTitleContainingIgnoreCaseAndLocationIgnoreCase(proffesion, city);
 	}
 
 	@Override
-	public List<JobDto> findJobsByEmploymentType(String type) 
+	public List<Job> findJobsByEmploymentType(String type) 
 	{
-		return getListOfJobsDto(jobRepository.findByEmploymentType(type));
+		return jobRepository.findByEmploymentType(type);
 	}
 }

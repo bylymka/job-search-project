@@ -70,4 +70,13 @@ public class EmployeeServiceImpl implements EmployeeService
 		log.info("User with username: " + user.getUsername() + "was registered");
 		return employeeRepository.save(employee);
 	}
+	
+	@Override
+	public Employee findByUsername(String username) 
+	{
+		User user = userRepository.findByUsername(username).
+				orElseThrow(() -> new IllegalArgumentException("The employee with username " + username + " does not exist."));
+		
+		return employeeRepository.findByUser(user);
+	}
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.ResumeDto;
-import com.andersen.jobsearch.demo.dto.ResumeWithInfoAboutEmployeeDto;
+import com.andersen.jobsearch.demo.dto.FullResumeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Resume;
 
@@ -20,13 +20,13 @@ public interface ResumeService
 	
 	Resume getResumeById(Long resumeId);
 	
-	List<ResumeWithInfoAboutEmployeeDto> findResumesByEmployee(String employeeUsername);
+	List<Resume> findResumesByEmployee(String employeeUsername);
 	
-	List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesion(String proffesion);
+	List<Resume> findResumesByProffesion(String proffesion);
 	
 	//List<Resume> findResumesByKeyWords(String keyWords);
 	
-	List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesionAndCity(String proffesion, String city);
+	List<Resume> findResumesByProffesionAndCity(String proffesion, String city);
 	
-	List<ResumeWithInfoAboutEmployeeDto> findResumesByCity(String city);
+	List<Resume> findResumesByCity(String city);
 }

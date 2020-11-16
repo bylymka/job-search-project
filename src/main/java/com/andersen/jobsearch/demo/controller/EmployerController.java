@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.andersen.jobsearch.demo.dto.CompanyDto;
 import com.andersen.jobsearch.demo.dto.EmployerDto;
 import com.andersen.jobsearch.demo.dto.JobDto;
-import com.andersen.jobsearch.demo.dto.ResumeWithInfoAboutEmployeeDto;
+import com.andersen.jobsearch.demo.dto.FullResumeDto;
 import com.andersen.jobsearch.demo.dto.UserDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
@@ -63,26 +63,26 @@ public class EmployerController
 	}
 	
 	@GetMapping("/employer/find-resumes")
-	public String getPageEmployerDashboard(@RequestParam(value="proffesion",required=false) String proffesion,
+	public String getPageFindResumes(@RequestParam(value="proffesion",required=false) String proffesion,
 			@RequestParam(value="city",required=false) String city, Model model)
 	{	
-		List<ResumeWithInfoAboutEmployeeDto> resumes = null;
+		List<FullResumeDto> resumes = null;
 		
 		if((city == null || city.isEmpty()) && (proffesion != null && !(proffesion.isEmpty())))
 		{
-			resumes = resumeService.findResumesByProffesion(proffesion);
+			resumes = FullResumeDto.getListOfResumesDto(resumeService.findResumesByProffesion(proffesion));
 			model.addAttribute("resumes", resumes);
 			return "employer/find-resumes";
 		}
 		
 		if((city != null && !(city.isEmpty())) && (proffesion != null && !(city.isEmpty())))
 		{
-			resumes = resumeService.findResumesByProffesionAndCity(proffesion, city);
+			resumes = FullResumeDto.getListOfResumesDto(resumeService.findResumesByProffesionAndCity(proffesion, city));
 			model.addAttribute("resumes", resumes);
 			return "employer/find-resumes";
 		}
 		
-		return "employer/employer-dashboard";
+		return "redirect:/employer/employer-dashboard";
 	}
 	
 	@GetMapping("/employer/post-job")
@@ -103,7 +103,7 @@ public class EmployerController
 		}
 		
 		jobService.saveJob(jobDto, SecurityContextHolder.getContext().getAuthentication().getName());
-		return "employer/employer-dashboard";
+		return "redirect:/employer/get-jobs";
 	}
 	
 	
@@ -111,7 +111,7 @@ public class EmployerController
 	public String getEmployerJobs(Model model)
 	{
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		List<JobDto> jobs = jobService.findJobsByEmployer(username);
+		List<JobDto> jobs = JobDto.getListOfJobsDto(jobService.findJobsByEmployer(username));
 		model.addAttribute("jobs", jobs);
 		return "employer/employer-jobs";
 	}

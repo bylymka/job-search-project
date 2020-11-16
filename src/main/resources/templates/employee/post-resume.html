@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  	<head>
+    	<title>Post Job</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" th:href="@{/css/style.css}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</head>
+ 	<body class="page-background">
+    	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-search"></span> Find vacancies</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-plus"></span> Post resume</a></li>
+          			<li><a href="#"><span class="glyphicon glyphicon-list"></span> My resumes</a></li>
+       				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a href="#"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a href="#"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav>
+	<br/><br/><br/><br/>
+
+  	<h1 style="text-align:center;">Post a resume</h1>
+
+  	<div class="row">
+    	<div class="col-md-8 col-md-offset-2 post-job">
+      		<form th:action="@{/employee/post-resume}" method="post" th:object="${resumeDto}">
+        		<h3>Desired Position</h3>
+        		<input type="text" class = "form-control" id ="desiredPosition" name = "desiredPosition" th:field="*{desiredPosition}">
+        		
+        		<h3>City</h3>
+        		<input type="text" class = "form-control" id ="city" name = "city" th:field="*{city}">
+        		
+        		<h3>Work Experience</h3>
+        		<textarea class="form-control" id="workExperience" rows="3" th:field="*{workExperience}"></textarea>
+        		
+        		<h3>Skills</h3>
+        		<textarea class="form-control" id="skills" rows="3" th:field="*{skills}"></textarea>
+  				
+  				<div class= "center-btn"><button type="submit" 
+  					class="btn btn-primary btn-lg post-job-btn" name="edit">Post</button></div>
+      		</form>
+          </div>
+	</div>
+
+  </body>
+</html>

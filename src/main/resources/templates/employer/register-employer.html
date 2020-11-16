@@ -3,29 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Registration Employer</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
 </head>
 <body class="page-background">
-	<!-- create navigation bar(header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
 			</div>
 		</div>
-	</nav><br/><br/>
+	</nav><br/><br/><br/><br/>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-8 col-md-offset-2 colorful-block">
 
-				<h1 align="center" th:text="#{registration.title}">Registration</h1>
+				<h1 align="center" th:text="#{registration.title}">Registration</h1><br/><br/>
 				
 				<form th:action="@{/sign-up/employer}" method="post" th:object="${employerDto}">
-					<h2 align="left" th:text="#{registration.company.fill_info}">Fill info about company:</h2>
+					<h2 align="left" th:text="#{company.fill_info}">Fill info about company:</h2>
 
 					<div class="form-group">
 						<label class="control-label" for="companyName" th:text="#{company.name}"> Company Name </label>
@@ -102,7 +102,7 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-info" th:text="#{app.register}">Register</button>
+						<button type="submit" class="btn btn-primary" th:text="#{app.register}">Register</button>
 						<span th:text="#{user.registered}"> Already registered?</span>
 						<a href="/" th:href="@{/login}" th:text="#{app.login}">Login here</a>
 					</div>

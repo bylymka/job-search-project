@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Resumes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body class="page-background">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-search"></span> Find vacancies</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-plus"></span> Post resume</a></li>
+          			<li><a href="#"><span class="glyphicon glyphicon-list"></span> My resumes</a></li>
+       				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a href="#"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a href="#"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav><br/><br/><br/><br/>
+
+  	<h1 style="text-align:center;">Jobs</h1>
+  	<div class="container">
+  		<div class="row">
+      		<div class="col-md-10 col-md-offset-1 show-item">
+			<div id="resume">
+				<table class="table table-bordered">
+  				<thead>
+    				<tr class="danger" >
+      					<th  class="table-header" scope="col">Desired Position</th>
+      					<th class="table-header" scope="col">City</th>
+      					<th class="table-header"scope="col">Work Experience</th>
+      					<th class="table-header" scope="col">Skills</th>
+    				</tr>
+  				</thead>
+  			<tbody>
+    			<tr class="info" th:each="resume : ${resumes}">
+    				<td><span class="user-info" th:text="${resume.desiredPosition}"></span></td>
+       				<td><span class="user-info" th:text="${resume.city}"></span></td>
+        			<td><span class="user-info" th:text="${resume.workExperience}"></span></td>
+       				<td><span class="user-info" th:text="${resume.skills}"></span></td>
+    			</tr>
+  			</tbody>
+			</table>
+		</div>
+  	</div>
+  </div>
+ </div>
+</body>
+</html>

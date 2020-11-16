@@ -36,9 +36,8 @@
   	<h1 style="text-align:center;">Post a job</h1>
 
   	<div class="row">
-    	<div class="col-md-2"></div>
 
-    	<div class="col-md-8 post-job">
+    	<div class="col-md-8 col-md-offset-2 colorful-block">
       		<form th:action="@{/employer/post-job}" method="post" th:object="${jobDto}">
         		<h3>Job Title</h3>
         		<input type="text" class = "form-control" id ="jobTitle" name = "jobTitle" th:field="*{jobTitle}">
@@ -91,8 +90,7 @@
   					class="btn btn-primary btn-lg post-job-btn" name="edit">Post</button></div>
       		</form>
           </div>
-
-    	<div class="col-md-2"></div>
+          
 	</div>
 
   </body>

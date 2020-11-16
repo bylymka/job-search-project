@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Jobs</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body class="page-background">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-search"></span> Find vacancies</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-plus"></span> Post resume</a></li>
+          			<li><a href="#"><span class="glyphicon glyphicon-list"></span> My resumes</a></li>
+       				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a href="#"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a href="#"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav>
+	<br/><br/><br/><br/>
+
+  <h1 style="text-align:center;">Found vacancies</h1>
+  <div class="container">
+  	<div class="row">
+
+      <div class="col-md-10 col-md-offset-1 colorful-block" th:each="job : ${jobs}">
+		<div id="job">
+        	<div>  
+        	     <h2 th:text="${job.jobTitle}"></h2>
+        	     <p>Status: <span class="user-info" th:text="${job.status}"></span></p> 
+        	     <p>Posted on: <span class="user-info" th:text="${job.postedOn}"></span></p>
+        	     <p>Company:
+        	      	<span class="user-info" th:text="${job.companyName}"></span>, 
+        	     	<span class="user-info" th:text="${job.companyEmployeesNum + ' employees' + '(industry: '}"></span>
+        	     	<span class="user-info" th:text="${job.companyIndustry + ')'}"></span></p>
+        	     	
+        	     <p>Employer: <span class="user-info" th:text="${job.employerName + 
+        	     	', phone number: ' + job.employerNumber}"></span></p>
+        	     	
+        	     <p>Description: <span class="user-info" th:text="${job.description}"></span></p>
+        	     <p>Category: <span class="user-info" th:text="${job.industry}"></span></p>
+        	     <p>Location: <span class="user-info" th:text="${job.location}"></span></p>
+        	     <p>Skills: <span class="user-info" th:text="${job.skills}"></span></p> 
+        	     <p>Salary: <span class="user-info" th:text="${job.salary}"></span></p> 
+        	     <p>Employment type: <span class="user-info" th:text="${job.employmentType}"></span></p>  
+            </div>
+		</div>
+      </div>
+  	</div>
+  </div>
+
+  </body>
+</html>

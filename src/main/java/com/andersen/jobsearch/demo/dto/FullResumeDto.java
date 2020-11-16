@@ -1,5 +1,8 @@
 package com.andersen.jobsearch.demo.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResumeWithInfoAboutEmployeeDto
+public class FullResumeDto
 {
 	@NotBlank
 	@Size(max=255)
@@ -47,12 +50,12 @@ public class ResumeWithInfoAboutEmployeeDto
 	@Size(max=2000)
 	private String skills;
 	
-	public static ResumeWithInfoAboutEmployeeDto toDto(Resume resume)
+	public static FullResumeDto toDto(Resume resume)
 	{
 		String employeeFullName = resume.getEmployee().getUser().getFirstName() + " "
 				+ resume.getEmployee().getUser().getLastName();
 		
-		ResumeWithInfoAboutEmployeeDto dto = ResumeWithInfoAboutEmployeeDto.builder()
+		FullResumeDto dto = FullResumeDto.builder()
 				.employeeFullName(employeeFullName)
 				.desiredPosition(resume.getDesiredPosition())
 				.city(resume.getCity())
@@ -63,5 +66,12 @@ public class ResumeWithInfoAboutEmployeeDto
 				.build();
 		
 		return dto;
+	}
+	
+	public static List<FullResumeDto> getListOfResumesDto(List<Resume> resumes)
+	{
+		List<FullResumeDto> resumesDto = new ArrayList<>();
+		resumes.forEach(resume -> resumesDto.add(FullResumeDto.toDto(resume)));
+		return resumesDto;
 	}
 }

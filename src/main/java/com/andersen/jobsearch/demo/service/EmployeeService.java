@@ -9,4 +9,6 @@ public interface EmployeeService
 	Employee findById(Long id);
 	
 	Employee registerEmployee(EmployeeDto employeeDto) throws EntityAlreadyExistAuthenticationException;
+	
+	Employee findByUsername(String username);
 }

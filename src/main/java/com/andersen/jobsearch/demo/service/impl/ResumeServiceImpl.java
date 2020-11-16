@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.ResumeDto;
-import com.andersen.jobsearch.demo.dto.ResumeWithInfoAboutEmployeeDto;
+import com.andersen.jobsearch.demo.dto.FullResumeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Resume;
 import com.andersen.jobsearch.demo.entity.User;
@@ -76,39 +76,32 @@ public class ResumeServiceImpl implements ResumeService
 		
 		return resume;
 	}
-
-	public List<ResumeWithInfoAboutEmployeeDto> getListOfResumesDto(List<Resume> resumes)
-	{
-		List<ResumeWithInfoAboutEmployeeDto> resumesDto = new ArrayList<>();
-		resumes.forEach(resume -> resumesDto.add(ResumeWithInfoAboutEmployeeDto.toDto(resume)));
-		return resumesDto;
-	}
 	
 	@Override
-	public List<ResumeWithInfoAboutEmployeeDto> findResumesByEmployee(String employeeUsername) 
+	public List<Resume> findResumesByEmployee(String employeeUsername) 
 	{
 		User user = userRepository.findByUsername(employeeUsername).
 				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
 		
 		Employee employee = employeeRepository.findByUser(user);
-		return getListOfResumesDto(resumeRepository.findByEmployee(employee));
+		return resumeRepository.findByEmployee(employee);
 	}
 
 	@Override
-	public List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesion(String proffesion) 
+	public List<Resume> findResumesByProffesion(String proffesion) 
 	{
-		return getListOfResumesDto(resumeRepository.findByDesiredPositionContainingIgnoreCase(proffesion));
+		return resumeRepository.findByDesiredPositionContainingIgnoreCase(proffesion);
 	}
 
 	@Override
-	public List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesionAndCity(String proffesion, String city) 
+	public List<Resume> findResumesByProffesionAndCity(String proffesion, String city) 
 	{
-		return getListOfResumesDto(resumeRepository.findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, city));
+		return resumeRepository.findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, city);
 	}
 
 	@Override
-	public List<ResumeWithInfoAboutEmployeeDto> findResumesByCity(String city) 
+	public List<Resume> findResumesByCity(String city) 
 	{
-		return getListOfResumesDto(resumeRepository.findByCityIgnoreCase(city));
+		return resumeRepository.findByCityIgnoreCase(city);
 	}
 }

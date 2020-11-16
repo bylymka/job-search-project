@@ -1,8 +1,12 @@
 package com.andersen.jobsearch.demo.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.andersen.jobsearch.demo.entity.Job;
 import com.andersen.jobsearch.demo.entity.Resume;
 
 import lombok.AllArgsConstructor;
@@ -54,5 +58,12 @@ public class ResumeDto
 				.build();
 		
 		return resumeDto;
+	}
+	
+	public static List<ResumeDto> getListOfResumeDto(List<Resume> resumes)
+	{
+		List<ResumeDto> resumesDto = new ArrayList<>();
+		resumes.forEach(resume -> resumesDto.add(ResumeDto.toDto(resume)));
+		return resumesDto;
 	}
 }

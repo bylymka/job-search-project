@@ -13,7 +13,7 @@
    	background-color: white;
 }
 
-.find-resumes-btn
+.find-btn
 {
 	position: relative;
 	vertical-align: middle;
@@ -97,6 +97,7 @@
 .colorful-block
 {
 	background-color: white; 
-	margin: 30px;
+	margin-top: 4px;
+	margin-bottom: 30px;
 	padding: 12px;
 }

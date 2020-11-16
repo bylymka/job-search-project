@@ -26,13 +26,13 @@ public interface JobRepository extends JpaRepository<Job, Long>
 	
 	List<Job> findByJobTitleContainingIgnoreCase(String jobTitle);
 	
-	List<Job> findByLocation(String location);
+	List<Job> findByLocationIgnoreCase(String location);
 	
 	List<Job> findByCompany(Company company);
 	
 	List<Job> findByJobTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int salary);
 	
-	List<Job> findByJobTitleAndLocation(String jobTitle, String location);
+	List<Job> findByJobTitleContainingIgnoreCaseAndLocationIgnoreCase(String jobTitle, String location);
 
 	List<Job> findByEmploymentType(String type);
 }

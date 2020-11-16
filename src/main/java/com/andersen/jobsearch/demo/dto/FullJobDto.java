@@ -5,16 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.andersen.jobsearch.demo.entity.Company;
-import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Job;
-import com.andersen.jobsearch.demo.entity.JobStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobDto
+public class FullJobDto
 {
 	@NotBlank
 	@Size(max=255)
@@ -52,13 +46,30 @@ public class JobDto
 	@NotBlank
 	private String employmentType;
 	
+	@NotBlank
 	private String postedOn;
 	
+	@NotBlank
 	private String status;
 	
-	public static JobDto toDto(Job job)
+	@NotBlank
+	private String employerName;
+	
+	@NotBlank
+	private String employerNumber;
+	
+	@NotBlank
+	private String companyName;
+	
+	@NotBlank
+	private String companyIndustry;
+	
+	@NotBlank
+	private int companyEmployeesNum;
+	
+	public static FullJobDto toDto(Job job)
 	{
-		JobDto jobDto = JobDto.builder()
+		FullJobDto jobDto = FullJobDto.builder()
 				.jobTitle(job.getJobTitle())
 				.description(job.getDescription())
 				.industry(job.getIndustry())
@@ -68,12 +79,17 @@ public class JobDto
 				.employmentType(job.getEmploymentType())
 				.postedOn(job.getPostedOn().toString())
 				.status(job.getStatus().toString().replace('_', '-').toLowerCase())
+				.employerName(job.getEmployer().getUser().getFirstName())
+				.employerNumber(job.getEmployer().getUser().getPhoneNum())
+				.companyName(job.getCompany().getName())
+				.companyIndustry(job.getCompany().getIndustry())
+				.companyEmployeesNum(job.getCompany().getEmployeesNum())
 				.build();
 		
 		return jobDto;
 	}
 	
-	public static Job fromDto(JobDto jobDto)
+	/*public static Job fromDto(JobWithInfoAboutEmployerDto jobDto)
 	{
 		Job job = Job.builder()
 				.jobTitle(jobDto.getJobTitle())
@@ -87,12 +103,12 @@ public class JobDto
 				.employmentType(jobDto.getEmploymentType())
 				.build();
 		return job;
-	}
+	}*/
 	
-	public static List<JobDto> getListOfJobsDto(List<Job> jobs)
+	public static List<FullJobDto> getListOfJobsDto(List<Job> jobs)
 	{
-		List<JobDto> jobsDto = new ArrayList<>();
-		jobs.forEach(job -> jobsDto.add(JobDto.toDto(job)));
+		List<FullJobDto> jobsDto = new ArrayList<>();
+		jobs.forEach(job -> jobsDto.add(FullJobDto.toDto(job)));
 		return jobsDto;
 	}
 }
