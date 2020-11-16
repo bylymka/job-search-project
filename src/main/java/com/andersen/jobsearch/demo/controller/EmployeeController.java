@@ -15,21 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.andersen.jobsearch.demo.dto.JobDto;
 import com.andersen.jobsearch.demo.dto.ResumeDto;
 import com.andersen.jobsearch.demo.dto.UserDto;
-import com.andersen.jobsearch.demo.dto.CompanyDto;
 import com.andersen.jobsearch.demo.dto.EmployeeDto;
-import com.andersen.jobsearch.demo.dto.EmployerDto;
 import com.andersen.jobsearch.demo.dto.FullJobDto;
-import com.andersen.jobsearch.demo.dto.FullResumeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
-import com.andersen.jobsearch.demo.entity.Employer;
-import com.andersen.jobsearch.demo.entity.Job;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.service.CompanyService;
 import com.andersen.jobsearch.demo.service.EmployeeService;
-import com.andersen.jobsearch.demo.service.EmployerService;
 import com.andersen.jobsearch.demo.service.JobService;
 import com.andersen.jobsearch.demo.service.ResumeService;
 import com.andersen.jobsearch.demo.service.UserService;
@@ -44,17 +37,15 @@ public class EmployeeController
 	private EmployeeService employeeService;
 	private JobService jobService;
 	private UserService userService;
-	private CompanyService companyService;
 	
 	@Autowired
 	public EmployeeController(ResumeService resumeService, EmployeeService employeeService,
-			JobService jobService, UserService userService, CompanyService companyService)
+			JobService jobService, UserService userService)
 	{
 		this.resumeService = resumeService;
 		this.employeeService = employeeService;
 		this.jobService = jobService;
 		this.userService = userService;
-		this.companyService = companyService;
 	}
 	
 	@GetMapping("/employee/dashboard")
