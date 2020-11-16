@@ -1,0 +1,93 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Company Info</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+</head>
+<body class="page-background">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/employer/dashboard}"><span class="glyphicon glyphicon-search"></span> Find resumes</a></li>
+					<li><a th:href="@{/employer/post-job}"><span class="glyphicon glyphicon-plus"></span> Post a job</a></li>
+          			<li><a th:href="@{/employer/get-jobs}"><span class="glyphicon glyphicon-list"></span> My jobs</a></li>
+       				<li><a th:href="@{/employer/account}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav><br/><br/>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 colorful-block">
+			
+				<h2 align="center">Edit info about company:</h2><br/><br/>
+				<form th:action="@{/employer/account/edit/company/{id}(id = ${companyId})}" method="post" th:object="${companyDto}">
+
+					<div class="form-group">
+						<label class="control-label" for="name" 
+							th:text="#{company.name}"> Company Name </label>
+						<input id="name" th:value="*{name}" class="form-control"
+							th:field="*{name}" required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="codeEDRPOU"
+							th:text="#{company.code_edrpou}"> Code EDRPOU </label>
+						<input id="codeEDRPOU" th:value="*{codeEDRPOU}" class="form-control" 
+							th:field="*{codeEDRPOU}" required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="address" 
+							th:text="#{company.address}"> Company Address </label> 
+						<input id="address" th:value="*{address}"class="form-control"
+							th:field="*{address}" required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label for="description" 
+							th:text="#{company.description}">Description</label>
+						<textarea id="description" class="form-control" th:value="*{description}" 
+							th:field="*{description}" required autofocus="autofocus" rows="3"></textarea>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="industry" 
+							th:text="#{company.industry}"> Industry</label>
+						<input id="industry" th:value="*{industry}" class="form-control" 
+							th:field="*{industry}" required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="employeesNum"
+						 	th:text="#{company.employees_num}"> Employees Number</label>
+						<input id="employeesNum" th:value="*{employeesNum}" class="form-control"
+						 	th:field="*{employeesNum}" required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<div class="center-btn"><button type="submit" class="btn btn-primary"
+						 	th:text="#{app.edit}" style="width: 300px;">Edit</button></div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

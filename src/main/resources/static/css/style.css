@@ -1,4 +1,102 @@
 .page-background 
 {
-	background-color: rgba(0,121,191, 0.6)	
+	background-color: #7FBBDE;	
+}
+
+.search
+{
+	position: relative;
+	vertical-align: middle; 
+	padding: 25px 30px;
+    margin-top: 20px;
+   	font-size: 18px;
+   	background-color: white;
+}
+
+.find-resumes-btn
+{
+	position: relative;
+	vertical-align: middle;
+	padding: 12px 12px;
+  	margin: 20px 40px;
+  	width: 135px; 
+}
+
+.show-item
+{
+	width: auto;
+	margin-top: 20px;
+}
+
+.ref
+{
+	color: black;
+	font-size: 18px;
+}
+
+.user-info
+{
+	font-family: cursive;
+	font-size: 15px;
+}
+
+.post-job
+{
+	background-color: white; 
+	margin-top: 10px; 
+	margin-left: 30px; 
+	margin-right: 0px; 
+	margin-bottom: 100px;
+}
+
+.post-job-btn
+{
+	width: 400px; 
+	margin:30px;
+}
+
+.center-btn
+{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.page-image{
+	height: 100vh;
+	background-image: url(q1.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.table-header
+{
+	text-align: center;
+	vertical-align: middle;
+	pading: 10px;
+}
+
+.account-div
+{
+	background-color: white; 
+	margin-top: 10px; 
+	margin-left: 30px;  
+	margin-bottom: 100px;
+}
+
+.account-div-company-info
+{
+	margin-right: 60px;
+}
+
+.account-div-personal-info
+{
+	margin-right: 0px;
+}
+
+.colorful-block
+{
+	background-color: white; 
+	margin: 30px;
+	padding: 12px;
 }

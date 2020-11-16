@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andersen.jobsearch.demo.dto.EmployerRegistrationDto;
+import com.andersen.jobsearch.demo.dto.EmployerDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Role;
@@ -53,7 +53,7 @@ public class EmployerServiceImpl implements EmployerService
 	}
 
 	@Override
-	public Employer registerEmployer(EmployerRegistrationDto employerDto) throws EntityAlreadyExistAuthenticationException
+	public Employer registerEmployer(EmployerDto employerDto) throws EntityAlreadyExistAuthenticationException
 	{
 		if(userRepository.existsUserByUsername(employerDto.getUsername()))
 		{
@@ -61,7 +61,7 @@ public class EmployerServiceImpl implements EmployerService
 					"User with username " + employerDto.getUsername() + " already exists.");
 		}
 		
-		Employer employer = EmployerRegistrationDto.fromDto(employerDto);
+		Employer employer = EmployerDto.fromDto(employerDto);
 				
 		Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.getOne(3)); // 3 - EPLOYER_ROLE
@@ -80,18 +80,25 @@ public class EmployerServiceImpl implements EmployerService
 		
 		return employerRepository.save(employer);
 	}
-
+	
 	@Override
-	public Employer updateEmployerPosition(String updatedEmployerPosition, String employerUsername) 
+	public Employer findEmployerByUsername(String username) 
 	{
-		if(userRepository.existsUserByUsername(employerUsername))
-		{
-			User user = userRepository.findByUsername(employerUsername).get();
-			Employer employer = employerRepository.findByUser(user);
-			employer.setPosition(updatedEmployerPosition);
-			return employerRepository.save(employer);
-		}
-		else
-			return null;
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new IllegalArgumentException("The employer with username " + username + " does not exist."));
+		
+		return employerRepository.findByUser(user);
+	}
+	
+	@Override
+	public Employer findEmployerByUser(User user) 
+	{
+		return employerRepository.findByUser(user);
+	}
+	
+	@Override
+	public Employer saveEmployer(Employer employer)
+	{
+		return employerRepository.save(employer);
 	}
 }

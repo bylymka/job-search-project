@@ -12,7 +12,7 @@ public interface CompanyService
 {
 	Company findById(Long id);
 	
-	Company modifyCompany(CompanyDto companyDto, Long codeEDRPOU);
+	Company modifyCompany(CompanyDto companyDto, Long companyId);
 	
 	//boolean checkCompanyByCodeEDRPOU(Long codeEDRPOU);
 }

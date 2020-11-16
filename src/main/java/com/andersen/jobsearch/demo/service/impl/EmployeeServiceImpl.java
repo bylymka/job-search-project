@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andersen.jobsearch.demo.dto.EmployeeRegistrationDto;
+import com.andersen.jobsearch.demo.dto.EmployeeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService
 	}
 
 	@Override
-	public Employee registerEmployee(EmployeeRegistrationDto employeeDto) throws EntityAlreadyExistAuthenticationException
+	public Employee registerEmployee(EmployeeDto employeeDto) throws EntityAlreadyExistAuthenticationException
 	{
 		if(userRepository.existsUserByUsername(employeeDto.getUsername()))
 		{
@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService
 					"User with username " + employeeDto.getUsername() + " already exists.");
 		}
 		
-		Employee employee = EmployeeRegistrationDto.fromDto(employeeDto);
+		Employee employee = EmployeeDto.fromDto(employeeDto);
 		
 		Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.getOne(2)); // 2 - EPLOYEE_ROLE

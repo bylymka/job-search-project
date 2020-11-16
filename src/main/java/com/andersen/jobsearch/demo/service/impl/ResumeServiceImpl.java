@@ -1,5 +1,6 @@
 package com.andersen.jobsearch.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.ResumeDto;
+import com.andersen.jobsearch.demo.dto.ResumeWithInfoAboutEmployeeDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Resume;
 import com.andersen.jobsearch.demo.entity.User;
@@ -38,7 +40,6 @@ public class ResumeServiceImpl implements ResumeService
 	{
 		User user = userRepository.findByUsername(employeeUsername).
 				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
-		log.info("The employee with username " + employeeUsername + " does not exist.");
 		
 		Employee employee = employeeRepository.findByUser(user);
 		Resume resume = ResumeDto.fromDto(resumeDto);
@@ -52,7 +53,6 @@ public class ResumeServiceImpl implements ResumeService
 	{
 		Resume resume = resumeRepository.findById(resumeId).
 				orElseThrow(() -> new IllegalArgumentException("The resume with id " + resumeId + " does not exist."));
-		log.info("The resume with id " + resumeId + " does not exist.");
 		
 		resume.setDesiredPosition(resumeDto.getDesiredPosition());
 		resume.setCity(resumeDto.getCity());
@@ -73,37 +73,42 @@ public class ResumeServiceImpl implements ResumeService
 	{
 		Resume resume =  resumeRepository.findById(resumeId).
 				orElseThrow(() -> new IllegalArgumentException("The resume with id " + resumeId + " does not exist."));
-		log.info("The resume with id " + resumeId + " does not exist.");
 		
 		return resume;
 	}
 
+	public List<ResumeWithInfoAboutEmployeeDto> getListOfResumesDto(List<Resume> resumes)
+	{
+		List<ResumeWithInfoAboutEmployeeDto> resumesDto = new ArrayList<>();
+		resumes.forEach(resume -> resumesDto.add(ResumeWithInfoAboutEmployeeDto.toDto(resume)));
+		return resumesDto;
+	}
+	
 	@Override
-	public List<Resume> findResumesByEmployee(String employeeUsername) 
+	public List<ResumeWithInfoAboutEmployeeDto> findResumesByEmployee(String employeeUsername) 
 	{
 		User user = userRepository.findByUsername(employeeUsername).
 				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
-		log.info("The employee with username " + employeeUsername + " does not exist.");
 		
 		Employee employee = employeeRepository.findByUser(user);
-		return resumeRepository.findByEmployee(employee);
+		return getListOfResumesDto(resumeRepository.findByEmployee(employee));
 	}
 
 	@Override
-	public List<Resume> findResumesByProffesion(String proffesion) 
+	public List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesion(String proffesion) 
 	{
-		return resumeRepository.findByDesiredPositionContainingIgnoreCase(proffesion);
+		return getListOfResumesDto(resumeRepository.findByDesiredPositionContainingIgnoreCase(proffesion));
 	}
 
 	@Override
-	public List<Resume> findResumesByProffesionAndCity(String proffesion, String city) 
+	public List<ResumeWithInfoAboutEmployeeDto> findResumesByProffesionAndCity(String proffesion, String city) 
 	{
-		return resumeRepository.findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, city);
+		return getListOfResumesDto(resumeRepository.findByDesiredPositionContainingIgnoreCaseAndCityIgnoreCase(proffesion, city));
 	}
 
 	@Override
-	public List<Resume> findResumesByCity(String city) 
+	public List<ResumeWithInfoAboutEmployeeDto> findResumesByCity(String city) 
 	{
-		return resumeRepository.findByCityIgnoreCase(city);
+		return getListOfResumesDto(resumeRepository.findByCityIgnoreCase(city));
 	}
 }

@@ -74,8 +74,7 @@ public class Job
 	
 	@Column(name="salary")
 	private Integer salary;
-	
-	@Enumerated(EnumType.STRING)
+
 	@Column(name="employment_type")
-	private EmploymentType employmentType;
+	private String employmentType;
 }

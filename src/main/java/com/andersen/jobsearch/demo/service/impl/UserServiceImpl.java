@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User modifyUser(UserDto userDto, String username) 
+	public User modifyUser(UserDto userDto, Long userId) 
 	{
-		User userFromDb = findByUsername(username);
+		User userFromDb = findById(userId);
 		userFromDb.setUsername(userDto.getUsername());
 		userFromDb.setFirstName(userDto.getFirstName());
 		userFromDb.setLastName(userDto.getLastName());
@@ -82,5 +82,11 @@ public class UserServiceImpl implements UserService
 			log.info("User enetered wrong password. Password in DB and entered password are not equals");
 			throw new PasswordException("Old password and new password are not equals");
 		}	
+	}
+	
+	@Override
+	public User saveUser(User user) 
+	{
+		return userRepository.save(user);
 	}
 }

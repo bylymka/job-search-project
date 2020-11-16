@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeRegistrationDto
+public class EmployeeDto
 {	
 	@NotBlank
 	@Size(min = 4, max = 45)
@@ -44,7 +44,7 @@ public class EmployeeRegistrationDto
 	@Pattern(regexp = "[+]380[\\d]{9}")
 	private String phoneNum;
 	
-	public static Employee fromDto(EmployeeRegistrationDto dto)
+	public static Employee fromDto(EmployeeDto dto)
 	{
 		Employee employee = new Employee();
 		
@@ -60,9 +60,9 @@ public class EmployeeRegistrationDto
 		return employee;
 	}
 	
-	public static EmployeeRegistrationDto toDto(Employee employee)
+	public static EmployeeDto toDto(Employee employee)
 	{
-		EmployeeRegistrationDto dto = EmployeeRegistrationDto.builder()
+		EmployeeDto dto = EmployeeDto.builder()
 				.username(employee.getUser().getUsername())
 				.firstName(employee.getUser().getFirstName())
 				.lastName(employee.getUser().getLastName())

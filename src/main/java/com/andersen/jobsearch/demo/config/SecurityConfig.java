@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.andersen.jobsearch.demo.security.MyAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -19,6 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
 	@Autowired
 	UserDetailsService userDetailsService;
+	
+	@Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler()
+	{
+        return new MyAuthenticationSuccessHandler();
+    }
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() 
@@ -55,8 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/login/success")
 				.failureUrl("/login?error=true")
+				.successHandler(myAuthenticationSuccessHandler())
 				.permitAll()
 			.and()
 				.logout()

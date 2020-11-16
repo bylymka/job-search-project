@@ -45,4 +45,19 @@ public class LoginController
 		
 		return "redirect:/login?logout=true";
 	}
+	
+	@GetMapping("/login/success")
+	public String redirectAfterSuccessfullLogin(Model model)
+	{
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("ADMIN"))
+            return "redirect:/admin/dashboard";
+        
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("EMPLOYEE"))
+            return "redirect:/employee/dashboard";
+            
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("EMPLOYER"))
+            return "redirect:/employer/dashboard";
+            
+        return "index";
+	}
 }

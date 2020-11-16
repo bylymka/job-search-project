@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Employer Account</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="page-background">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/employer/dashboard}"><span class="glyphicon glyphicon-search"></span> Find resumes</a></li>
+					<li><a th:href="@{/employer/post-job}"><span class="glyphicon glyphicon-plus"></span> Post a job</a></li>
+          			<li><a th:href="@{/employer/get-jobs}"><span class="glyphicon glyphicon-list"></span> My jobs</a></li>
+       				<li><a th:href="@{/employer/account}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav><br/><br/><br/><br/>
+	
+	<div class="container">	
+ 	<div class="row">
+  
+    <div class="col-md-1"></div>
+
+    <form th:action="@{/employer/account}" th:method="get" th:object="${employerDto}">
+    	<h1 style="text-align:center;">Employer Account</h1><br/><br/>
+    	
+    	<div class="col-md-5 account-div account-div-company-info">
+      		<h2 style="text-align: center;">Company info</h2>
+    		<p>Name: <span th:text="*{companyName}" style="font-family: cursive;">PrivatBank</span></p>
+      		<p>Code EDRPOU: <span th:text="*{companyCodeEDRPOU}" style="font-family: cursive">12345678</span></p>
+      		<p>Address: <span th:text="*{companyAddress}" style="font-family: cursive">Kyiv, Garmatna, 36</span></p>
+     		<p>Description: <span th:text="*{companyDescription}" style="font-family: cursive">The biggest bank in Ukraine</span></p>
+      		<p>Industry: <span th:text="*{companyIndustry}" style="font-family: cursive">Banking</span></p>
+      		<p>Employees number: <span th:text="*{companyEmployeesNum}" style="font-family: cursive">10 000</span></p>
+     		<div class="center-btn"><button type="button" class="btn btn-info btn-lg" style = "width: 450px;"
+     			 name="edit"><a th:href="@{/employer/account/edit/company}">Edit</a></button></div>
+    	</div>
+    	
+		<div class="col-md-5 account-div account-div-personal-info">
+      		<h2 style="text-align: center;">Personal info</h2>
+      		<p>Username: <span th:text="*{username}" style="font-family: cursive;">kop22</span></p>
+      		<p>First name: <span th:text="*{firstName}" style="font-family: cursive">Kateryna</span></p>
+      		<p>Last name: <span th:text="*{lastName}" style="font-family: cursive">Koop</span></p>
+      		<p>Email: <span th:text="*{email}" style="font-family: cursive">katerynakoop@gmail.com</span></p>
+      		<p>Phone number: <span th:text="*{phoneNum}" style="font-family: cursive">+380123456789</span></p>
+      		<p>Position in company: <span  th:text="*{employerPosition}" style="font-family: cursive">HR</span></p>
+      		<div class="center-btn"><button type="submit" class="btn btn-info btn-lg style" style = "width: 450px;"
+      			 name="edit"><a th:href="@{/employer/account/edit/user}">Edit</a></button></div>
+    	</div>
+    </form>
+
+    <div class="col-md-1"></div>
+
+ 	</div>
+	</div>
+	
+  </body>
+</html>

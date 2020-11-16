@@ -17,7 +17,9 @@ public interface UserService
 	
 	User findByUsername(String username);
 	
-	User modifyUser(UserDto userDto, String username);
+	User modifyUser(UserDto userDto, Long userId);
 	
 	void updatePassword(String username, String oldPassword, String newPassword) throws PasswordException;
+	
+	User saveUser(User user);
 }

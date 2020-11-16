@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployerRegistrationDto
+public class EmployerDto
 {
 	@NotBlank
 	@Size(min = 4, max = 45)
@@ -73,7 +73,7 @@ public class EmployerRegistrationDto
 	@Size(max = 255)
 	private String employerPosition;
 	
-	public static Employer fromDto(EmployerRegistrationDto dto)
+	public static Employer fromDto(EmployerDto dto)
 	{
 		Employer employer = new Employer();
 		
@@ -102,9 +102,9 @@ public class EmployerRegistrationDto
 		return employer;
 	}
 	
-	public static EmployerRegistrationDto toDto(Employer employer)
+	public static EmployerDto toDto(Employer employer)
 	{
-		EmployerRegistrationDto dto = EmployerRegistrationDto.builder()
+		EmployerDto dto = EmployerDto.builder()
 				.username(employer.getUser().getUsername())
 				.firstName(employer.getUser().getFirstName())
 				.lastName(employer.getUser().getLastName())

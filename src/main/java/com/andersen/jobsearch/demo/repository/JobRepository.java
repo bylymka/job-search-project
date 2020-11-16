@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
-import com.andersen.jobsearch.demo.entity.EmploymentType;
 import com.andersen.jobsearch.demo.entity.Job;
 import com.andersen.jobsearch.demo.entity.JobStatus;
 
@@ -35,5 +34,5 @@ public interface JobRepository extends JpaRepository<Job, Long>
 	
 	List<Job> findByJobTitleAndLocation(String jobTitle, String location);
 
-	List<Job> findByEmploymentType(EmploymentType type);
+	List<Job> findByEmploymentType(String type);
 }

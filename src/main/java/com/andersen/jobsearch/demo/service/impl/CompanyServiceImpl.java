@@ -24,13 +24,14 @@ public class CompanyServiceImpl implements CompanyService
 	@Override
 	public Company findById(Long id) 
 	{
-		return companyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("The company with id " + id + " does not exist."));
+		return companyRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("The company with id " + id + " does not exist."));
 	}
 
 	@Override
-	public Company modifyCompany(CompanyDto companyDto, Long codeEDRPOU)
+	public Company modifyCompany(CompanyDto companyDto, Long companyId)
 	{	
-		Company companyFromDb = companyRepository.findByCodeEDRPOU(codeEDRPOU);
+		Company companyFromDb = findById(companyId);
 		
 		companyFromDb.setName(companyDto.getName());
 		companyFromDb.setIndustry(companyDto.getIndustry());

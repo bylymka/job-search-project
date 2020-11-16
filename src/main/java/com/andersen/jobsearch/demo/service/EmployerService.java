@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.andersen.jobsearch.demo.dto.EmployeeRegistrationDto;
-import com.andersen.jobsearch.demo.dto.EmployerRegistrationDto;
+import com.andersen.jobsearch.demo.dto.EmployeeDto;
+import com.andersen.jobsearch.demo.dto.EmployerDto;
 import com.andersen.jobsearch.demo.entity.Employee;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Role;
@@ -16,8 +16,8 @@ import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationExc
 public interface EmployerService
 {
 	Employer findById(Long id);
-	
-	Employer registerEmployer(EmployerRegistrationDto employerDto) throws EntityAlreadyExistAuthenticationException;
-	
-	Employer updateEmployerPosition(String updatedEmployerPosition, String employerUsername);
+	Employer registerEmployer(EmployerDto employerDto) throws EntityAlreadyExistAuthenticationException;
+	Employer findEmployerByUsername(String username);
+	Employer findEmployerByUser(User user);
+	Employer saveEmployer(Employer employer);
 }

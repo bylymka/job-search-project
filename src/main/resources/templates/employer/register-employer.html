@@ -1,34 +1,22 @@
 <!DOCTYPE>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Registration Employer</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>Registration Employer</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
 </head>
-<body>
+<body class="page-background">
 	<!-- create navigation bar(header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
 			</div>
 		</div>
-	</nav>
-	<br />
-	<br />
-
-	<!-- create registration form -->
+	</nav><br/><br/>
 
 	<div class="container">
 		<div class="row">
@@ -36,69 +24,67 @@
 
 				<h1 align="center" th:text="#{registration.title}">Registration</h1>
 				
-				<form th:action="@{/sign-up/employer}" method="post"
-					th:object="${employerDto}">
-
+				<form th:action="@{/sign-up/employer}" method="post" th:object="${employerDto}">
 					<h2 align="left" th:text="#{registration.company.fill_info}">Fill info about company:</h2>
 
 					<div class="form-group">
-						<label class="control-label" for="companyName" th:text="#{registration.company.name}"> Company Name </label>
+						<label class="control-label" for="companyName" th:text="#{company.name}"> Company Name </label>
 						<input id="companyName" class="form-control" th:field="*{companyName}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="companyCodeEDRPOU" th:text="#{registration.company.code_edrpou}"> Code EDRPOU </label>
+						<label class="control-label" for="companyCodeEDRPOU" th:text="#{company.code_edrpou}"> Code EDRPOU </label>
 						<input id="companyCodeEDRPOU" class="form-control" th:field="*{companyCodeEDRPOU}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="companyAddress" th:text="#{registration.company.address}"> Company Address </label> 
+						<label class="control-label" for="companyAddress" th:text="#{company.address}"> Company Address </label> 
 						<input id="companyAddress" class="form-control" th:field="*{companyAddress}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label for="companyDescription" th:text="#{registration.company.description}">Description</label>
+						<label for="companyDescription" th:text="#{company.description}">Description</label>
 						<textarea class="form-control" id="companyDescription" th:field="*{companyDescription}" 
 							required autofocus="autofocus" rows="3"></textarea>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label" for="companyIndustry" th:text="#{registration.company.industry}"> Industry</label>
+						<label class="control-label" for="companyIndustry" th:text="#{company.industry}"> Industry</label>
 						<input id="companyIndustry" class="form-control" th:field="*{companyIndustry}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
 						<label class="control-label" for="companyEmployeesNum"
-						 	th:text="#{registration.company.employees_num}"> Employees Number</label>
+						 	th:text="#{company.employees_num}"> Employees Number</label>
 						<input id="companyEmployeesNum" class="form-control" th:field="*{companyEmployeesNum}" required autofocus="autofocus">
 					</div>
 					
 					<br/>
-					<h2 align="left" th:text="#{registration.user.fill_info}">Fill info about yourself:</h2>
+					<h2 align="left" th:text="#{user.fill_info}">Fill info about yourself:</h2>
 					
 					<div class="form-group">
-						<label class="control-label" for="employerPosition" th:text="#{registration.employer.position}" >
+						<label class="control-label" for="employerPosition" th:text="#{employer.position}" >
 						Your position in company </label>
 						<input id="employerPosition" class="form-control" th:field="*{employerPosition}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="firstName" th:text="#{registration.user.first_name}"> First Name </label>
+						<label class="control-label" for="firstName" th:text="#{user.first_name}"> First Name </label>
 						<input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="lastName" th:text="#{registration.user.last_name}"> Last Name </label>
+						<label class="control-label" for="lastName" th:text="#{user.last_name}"> Last Name </label>
 						<input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="email" th:text="#{registration.user.email}"> Email </label>
+						<label class="control-label" for="email" th:text="#{user.email}"> Email </label>
 						<input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="phoneNum"  th:text="#{registration.user.phone_num}"> Phone Number </label>
+						<label class="control-label" for="phoneNum"  th:text="#{user.phone_num}"> Phone Number </label>
 						<input id="phoneNum" class="form-control" th:field="*{phoneNum}" required autofocus="autofocus">
 					</div>
 
@@ -106,18 +92,18 @@
 					<h2 align="left" th:text="#{user.credentials}">Sign in credentials:</h2>
 					
 					<div class="form-group">
-						<label class="control-label" for="username" th:text="#{registration.user.username}"> Username </label> 
+						<label class="control-label" for="username" th:text="#{user.username}"> Username </label> 
 						<input id="username" class="form-control" th:field="*{username}" required autofocus="autofocus">
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label" for="password" th:text="#{registration.user.password}"> Password </label>
+						<label class="control-label" for="password" th:text="#{user.password}"> Password </label>
 						<input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus">
 					</div>
 					
 					<div class="form-group">
 						<button type="submit" class="btn btn-info" th:text="#{app.register}">Register</button>
-						<span th:text="#{registration.user.registered}"> Already registered?</span>
+						<span th:text="#{user.registered}"> Already registered?</span>
 						<a href="/" th:href="@{/login}" th:text="#{app.login}">Login here</a>
 					</div>
 					

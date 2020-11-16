@@ -1,100 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Jobbom</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" th:href="@{/style.css}">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-  <body class="page">
+<html xmlns:th="http://www.thymeleaf.org">
+  	<head>
+    	<title>Post Job</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" th:href="@{/css/style.css}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</head>
+ 	<body class="page-background">
+    	
     <nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
+		
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
 			</div>
 
 			<div class="pull-right">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a th:href="#" th:text="#"><span class="glyphicon glyphicon-search"></span>
-						Find resumes</a></li>
-					<li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-plus"></span>
-						Post a job</a></li>
-          <li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-list"></span>
-        		My jobs</a></li>
-          <li><a th:href="#"  th:text="#"><span class="glyphicon glyphicon-user"></span>
-  					Account</a></li>
-
+					<li><a th:href="@{/employer/dashboard}"><span class="glyphicon glyphicon-search"></span> Find resumes</a></li>
+					<li><a th:href="@{/employer/post-job}"><span class="glyphicon glyphicon-plus"></span> Post a job</a></li>
+          			<li><a th:href="@{/employer/get-jobs}"><span class="glyphicon glyphicon-list"></span> My jobs</a></li>
+       				<li><a th:href="@{/employer/account}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
 					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
 					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
 				</ul>
 			</div>
+			
 		</div>
-	</nav>
-	<br/><br/><br/><br/>
+	</nav><br/><br/><br/><br/>
 
-  <h1 style="text-align:center;">Post a job</h1>
+  	<h1 style="text-align:center;">Post a job</h1>
 
-  <div class="row">
-    <div class="col-md-2">
-    </div>
+  	<div class="row">
+    	<div class="col-md-2"></div>
 
-    <div class="col-md-8"
-      style="background-color: white; margin-top: 10px; margin-left: 30px; margin-right: 0px; margin-bottom: 100px;">
-      <form>
-        <h3>Job Title</h3>
-        <input type="text" class = "form-control" id ="jobTitle" name = "jobTitle">
-        <h3>Industry</h3>
-        <div class="checkbox "><label><input type="checkbox">Accounting &amp; auditing</label></div>
-        <div class="checkbox "><label><input type="checkbox">Administration &amp; middle management</label></div>
-        <div class="checkbox "><label><input type="checkbox">Agriculture &amp; agribusiness</label></div>
-        <div class="checkbox "><label><input type="checkbox">Beauty, fitne55 &amp; sports</label></div>
-        <div class="checkbox "><label><input type="checkbox">Construction &amp; architecture</label></div>
-        <div class="checkbox "><label><input type="checkbox">Culture, music &amp; entertainment</label></div>
-        <div class="checkbox "><label><input type="checkbox">Design &amp; creativity</label></div>
-        <div class="checkbox "><label><input type="checkbox">Education &amp; science</label></div>
-        <div class="checkbox "><label><input type="checkbox">Finance &amp; banking</label></div>
-        <div class="checkbox "><label><input type="checkbox">Hotels, restaurants &amp; tourism</label></div>
-        <div class="checkbox "><label><input type="checkbox">IT, computers &amp; Internet</label></div>
-        <div class="checkbox "><label><input type="checkbox">Journalism, publishing &amp; printing</label></div>
-        <div class="checkbox "><label><input type="checkbox">Logistics, warehouse &amp; international commerce</label></div>
-        <div class="checkbox "><label><input type="checkbox">Marketing, advertising &amp; PR</label></div>
-        <div class="checkbox "><label><input type="checkbox">Medicine &amp; pharmaceuticals</label></div>
-        <h3>Description</h3>
-        <textarea class="form-control" id="companyDescription" rows="2"></textarea>
-        <h3>City</h3>
-        <input type="text" class = "form-control" id ="location" name = "location">
-        <h3>Skills</h3>
-        <textarea class="form-control" id="skills" rows="3"></textarea>
-        <h3>Salary</h3>
-        <input type="text" class = "form-control" id ="salary" name = "salary">
-        <h3>Employment Type</h3>
-        <div class="container">
-          <div class="row" style="font-size:16px;">
-            <label><input id="full_time" name="employment_type" value="full-time" style="margin:3px;" type="radio">full-time</label>
-            <label><input id="part_time" name="employment_type" value="part-time"  style="margin:3px;" type="radio">part-time</label>
-            <label><input id="remote" name="employment_type" value="remote" style="margin:3px;" type="radio">remote</label>
-            <label><input id="intership" name="employment_type" value="intership"  style="margin:3px;" type="radio">intership</label>
+    	<div class="col-md-8 post-job">
+      		<form th:action="@{/employer/post-job}" method="post" th:object="${jobDto}">
+        		<h3>Job Title</h3>
+        		<input type="text" class = "form-control" id ="jobTitle" name = "jobTitle" th:field="*{jobTitle}">
+        		
+        		<h3>Industry</h3>
+        		<div class="form-group">
+    				<select class="form-control" id="industry" th:field="*{industry}">
+    					<option th:value="#{job.industry.other}">Other</option>
+      					<option th:value="#{job.industry.accounting}">Accounting &amp; auditing</option>
+      					<option th:value="#{job.industry.administration}">Administration &amp; middle management</option>
+      					<option th:value="#{job.industry.agroculture}">Agroculture &amp; agrobusiness</option>
+      					<option th:value="#{job.industry.beauty}">Beauty, fitne55 &amp; sports</option>
+      					<option th:value="#{job.industry.architecture}">Construction &amp; architecture</option>
+      					<option th:value="#{job.industry.culture}">Culture, music &amp; entertainment</option>
+      					<option th:value="#{job.industry.design}">Design &amp; creativity</option>
+      					<option th:value="#{job.industry.education}">Education &amp; science</option>
+      					<option th:value="#{job.industry.finance}">Finance &amp; banking</option>
+      					<option th:value="#{job.industry.hotels}">Hotels, restaurants &amp; tourism</option>
+      					<option th:value="#{job.industry.IT}">IT, computers &amp; Internet</option>
+      					<option th:value="#{job.industry.journalism}">Journalism, publishing &amp; printing</option>
+      					<option th:value="#{job.industry.logistics}">Logistics, warehouse &amp; international commerce</option>
+      					<option th:value="#{job.industry.marketing}">Marketing, advertising &amp; PR</option>
+      					<option th:value="#{job.industry.medicine}">Medicine &amp; pharmaceuticals</option>
+    				</select>
+  				</div>
+  				
+        		<h3>Description</h3>
+        		<textarea class="form-control" id="companyDescription" rows="2" th:field="*{description}"></textarea>
+        		
+        		<h3>City</h3>
+        		<input type="text" class = "form-control" id ="location" name = "location" th:field="*{location}">
+        		
+        		<h3>Skills</h3>
+        		<textarea class="form-control" id="skills" rows="3" th:field="*{skills}"></textarea>
+        		
+        		<h3>Salary</h3>
+        		<input type="text" class = "form-control" id ="salary" name = "salary" th:field="*{salary}">
+        		
+        		<h3>Employment Type</h3>
+        		<div class="form-group">
+    				<select class="form-control" id="employmentType" th:field="*{employmentType}">
+    					<option th:value="#{job.employment_type.full_time}">full-time</option>
+      					<option th:value="#{job.employment_type.part_time}">part-time</option>
+      					<option th:value="#{job.employment_type.remote}">remote</option>
+      					<option th:value="#{job.employment_type.intership}">intership</option>
+      				</select>
+  				</div>
+  				
+  				<div class= "center-btn"><button type="submit" 
+  					class="btn btn-primary btn-lg post-job-btn" name="edit">Post</button></div>
+      		</form>
           </div>
-        </div>
 
-        <button type="button" class="btn btn-info btn-lg" name="edit" style="width: 920px; margin:30px;">Post Job</button>
-      </form>
-    </div>
-    <div class="col-md-2">
-  </div>
-</div>
+    	<div class="col-md-2"></div>
+	</div>
 
   </body>
 </html>

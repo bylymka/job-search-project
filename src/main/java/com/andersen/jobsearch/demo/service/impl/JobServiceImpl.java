@@ -1,5 +1,6 @@
 package com.andersen.jobsearch.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.andersen.jobsearch.demo.dto.JobDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
-import com.andersen.jobsearch.demo.entity.EmploymentType;
 import com.andersen.jobsearch.demo.entity.Job;
 import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.repository.CompanyRepository;
 import com.andersen.jobsearch.demo.repository.EmployerRepository;
 import com.andersen.jobsearch.demo.repository.JobRepository;
 import com.andersen.jobsearch.demo.repository.UserRepository;
@@ -25,23 +26,23 @@ public class JobServiceImpl implements JobService
 	private JobRepository jobRepository;
 	private EmployerRepository employerRepository;
 	private UserRepository userRepository;
+	private CompanyRepository companyRepository;
 	
 	@Autowired
-	public JobServiceImpl(JobRepository jobRepository, EmployerRepository employerRepository, UserRepository userRepository)
+	public JobServiceImpl(JobRepository jobRepository, EmployerRepository employerRepository,
+			UserRepository userRepository, CompanyRepository companyRepository)
 	{
 		this.jobRepository = jobRepository;
 		this.employerRepository = employerRepository;
 		this.userRepository = userRepository;
+		this.companyRepository = companyRepository;
 	}
-
 	 
 	@Override
 	public Job saveJob(JobDto jobDto, String employerUsername) 
 	{
 		User user = userRepository.findByUsername(employerUsername).
 				orElseThrow(() -> new IllegalArgumentException("The employer with username " + employerUsername + " does not exist."));
-		
-		log.info("The employer with username " + employerUsername + " does not exist.");
 		
 		Employer employer = employerRepository.findByUser(user);
 		Job job =  JobDto.fromDto(jobDto);
@@ -62,7 +63,7 @@ public class JobServiceImpl implements JobService
 		jobFromDb.setLocation(jobDto.getLocation());
 		jobFromDb.setSkills(jobDto.getSkills());
 		jobFromDb.setSalary(jobDto.getSalary());
-		jobFromDb.setEmploymentType(EmploymentType.valueOf(jobDto.getEmploymentType().replace('-', '_').toUpperCase()));
+		jobFromDb.setEmploymentType(jobDto.getEmploymentType());
 		
 		return jobRepository.save(jobFromDb);
 	}
@@ -79,40 +80,52 @@ public class JobServiceImpl implements JobService
 	{
 		return jobRepository.findAll();
 	}
-
-	@Override
-	public List<Job> findJobsByEmployer(Employer employer) 
+	
+	public List<JobDto> getListOfJobsDto(List<Job> jobs)
 	{
-		return jobRepository.findByEmployer(employer);
+		List<JobDto> jobsDto = new ArrayList<>();
+		jobs.forEach(job -> jobsDto.add(JobDto.toDto(job)));
+		return jobsDto;
 	}
 
 	@Override
-	public List<Job> findJobsByTitle(String jobTitle) 
+	public List<JobDto> findJobsByEmployer(String employerUsername) 
 	{
-		return jobRepository.findByJobTitleContainingIgnoreCase(jobTitle);
+		User user = userRepository.findByUsername(employerUsername).
+				orElseThrow(() -> new IllegalArgumentException("The employer with username " + employerUsername + " does not exist."));
+		
+		Employer employer = employerRepository.findByUser(user);
+		return getListOfJobsDto(jobRepository.findByEmployer(employer));
 	}
 
 	@Override
-	public List<Job> findJobsByLocation(String location) 
+	public List<JobDto> findJobsByTitle(String jobTitle) 
 	{
-		return jobRepository.findByLocation(location);
+		return getListOfJobsDto(jobRepository.findByJobTitleContainingIgnoreCase(jobTitle));
 	}
 
 	@Override
-	public List<Job> findJobsByCompany(Company company) 
+	public List<JobDto> findJobsByLocation(String location) 
 	{
-		return jobRepository.findByCompany(company);
+		return getListOfJobsDto(jobRepository.findByLocation(location));
 	}
 
 	@Override
-	public List<Job> findJobsByJobTitleAndLocation(String jobTitle, String location) 
+	public List<JobDto> findJobsByCompany(String companyName) 
 	{
-		return jobRepository.findByJobTitleAndLocation(jobTitle, location);
+		Company company = companyRepository.findByName(companyName);
+		return getListOfJobsDto(jobRepository.findByCompany(company));
 	}
 
 	@Override
-	public List<Job> findJobsByEmploymentType(EmploymentType type) 
+	public List<JobDto> findJobsByJobTitleAndLocation(String jobTitle, String location) 
 	{
-		return jobRepository.findByEmploymentType(type);
+		return getListOfJobsDto(jobRepository.findByJobTitleAndLocation(jobTitle, location));
+	}
+
+	@Override
+	public List<JobDto> findJobsByEmploymentType(String type) 
+	{
+		return getListOfJobsDto(jobRepository.findByEmploymentType(type));
 	}
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.andersen.jobsearch.demo.dto.EmployeeRegistrationDto;
-import com.andersen.jobsearch.demo.dto.EmployerRegistrationDto;
+import com.andersen.jobsearch.demo.dto.EmployeeDto;
+import com.andersen.jobsearch.demo.dto.EmployerDto;
 import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.service.CompanyService;
 import com.andersen.jobsearch.demo.service.EmployeeService;
@@ -40,19 +40,19 @@ public class RegistrationController
 	@GetMapping("/sign-up/employee")
 	public String getEmployeeRegistrationForm(Model model)
 	{
-		model.addAttribute("employeeDto", new EmployeeRegistrationDto());
+		model.addAttribute("employeeDto", new EmployeeDto());
 		return "employee/register-employee";
 	}
 	
 	@GetMapping("/sign-up/employer")
 	public String getEmployerRegistrationForm(Model model)
 	{
-		model.addAttribute("employerDto", new EmployerRegistrationDto());
+		model.addAttribute("employerDto", new EmployerDto());
 		return "employer/register-employer";
 	}
 	
 	@PostMapping("/sign-up/employee")
-	public String registerEmployee(@ModelAttribute("employeeDto") @Valid EmployeeRegistrationDto dto,
+	public String registerEmployee(@ModelAttribute("employeeDto") @Valid EmployeeDto dto,
 			final BindingResult bindingResult, final Model model)
 	{
 		if(bindingResult.hasErrors())
@@ -77,7 +77,7 @@ public class RegistrationController
 	}
 	
 	@PostMapping("/sign-up/employer")
-	public String registerEmployer(@ModelAttribute("employerDto") @Valid EmployerRegistrationDto dto,
+	public String registerEmployer(@ModelAttribute("employerDto") @Valid EmployerDto dto,
 			final BindingResult bindingResult, final Model model)
 	{
 		if(bindingResult.hasErrors())
