@@ -39,7 +39,7 @@
 
       <div class="col-md-10 col-md-offset-1 colorful-block" th:each="job : ${jobs}">
 		<div id="job">
-        	<div>  
+        	<div>
         	     <h2 th:text="${job.jobTitle}"></h2>
         	     <p>Status: <span class="user-info" th:text="${job.status}"></span></p> 
         	     <p>Posted on: <span class="user-info" th:text="${job.postedOn}"></span></p>
@@ -56,7 +56,13 @@
         	     <p>Location: <span class="user-info" th:text="${job.location}"></span></p>
         	     <p>Skills: <span class="user-info" th:text="${job.skills}"></span></p> 
         	     <p>Salary: <span class="user-info" th:text="${job.salary}"></span></p> 
-        	     <p>Employment type: <span class="user-info" th:text="${job.employmentType}"></span></p>  
+        	     <p>Employment type: <span class="user-info" th:text="${job.employmentType}"></span></p>
+        	     
+				<div class="apply-btn">
+        	    	<button type="button" class="btn btn-primary" style="width: 200px;">
+        	     		<a class="apply-btn-ref" th:href="@{/employee/get-jobs/apply-for-job/{jobId}(jobId = ${job.jobId})}">Apply</a>
+        	     	</button>
+        	     </div>
             </div>
 		</div>
       </div>

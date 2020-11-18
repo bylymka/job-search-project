@@ -21,6 +21,7 @@ import com.andersen.jobsearch.demo.dto.JobDto;
 import com.andersen.jobsearch.demo.dto.FullResumeDto;
 import com.andersen.jobsearch.demo.dto.UserDto;
 import com.andersen.jobsearch.demo.entity.Employer;
+import com.andersen.jobsearch.demo.entity.Resume;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.service.CompanyService;
 import com.andersen.jobsearch.demo.service.EmployerService;
@@ -181,5 +182,14 @@ public class EmployerController
 		employerService.saveEmployer(employer);
 
 		return  "redirect:/employer/account";
+	}
+	
+	@GetMapping("/employer/get-job/get-job-applicants/{jobId}")
+	public String getAppliedResumes(@PathVariable("jobId")Long jobId, Model model)
+	{
+		List<Resume> resumes = jobService.getAppliedResumes(jobId);
+		List<FullResumeDto> resumesDto = FullResumeDto.getListOfResumesDto(resumes);
+		model.addAttribute("resumes", resumesDto);
+		return "employer/get-job-applicants";
 	}
 }

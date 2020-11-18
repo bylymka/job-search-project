@@ -83,3 +83,10 @@ CREATE TABLE IF NOT EXISTS jobs(
 INSERT INTO roles (role) VALUES('ROLE_ADMIN');
 INSERT INTO roles (role) VALUES('ROLE_EMPLOYEE');
 INSERT INTO roles (role) VALUES('ROLE_EMPLOYER');
+
+CREATE TABLE job_applicants (
+	job_id bigint,
+	resume_id bigint,
+	FOREIGN KEY(job_id) REFERENCES jobs(id),
+	FOREIGN KEY(resume_id) REFERENCES resumes(id)
+)

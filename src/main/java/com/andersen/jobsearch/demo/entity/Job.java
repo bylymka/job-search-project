@@ -1,6 +1,8 @@
 package com.andersen.jobsearch.demo.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -33,11 +37,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Job
 {
+	public Job()
+	{
+		resumes = new ArrayList<Resume>();
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
@@ -77,4 +85,10 @@ public class Job
 
 	@Column(name="employment_type")
 	private String employmentType;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "job_applicants", joinColumns = @JoinColumn(name = "job_id"),
+		inverseJoinColumns = @JoinColumn(name = "resume_id"))
+	
+	private List<Resume> resumes;
 }

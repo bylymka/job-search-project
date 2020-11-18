@@ -45,6 +45,10 @@ public class ResumeServiceImpl implements ResumeService
 		Resume resume = ResumeDto.fromDto(resumeDto);
 		resume.setEmployee(employee);
 		
+		if(employee.getResumes() == null)
+			employee.setResumes(new ArrayList<Resume>());
+		
+		employee.getResumes().add(resume);
 		return resumeRepository.save(resume);
 	}
 

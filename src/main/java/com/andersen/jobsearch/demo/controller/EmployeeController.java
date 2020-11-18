@@ -20,6 +20,7 @@ import com.andersen.jobsearch.demo.dto.UserDto;
 import com.andersen.jobsearch.demo.dto.EmployeeDto;
 import com.andersen.jobsearch.demo.dto.FullJobDto;
 import com.andersen.jobsearch.demo.entity.Employee;
+import com.andersen.jobsearch.demo.entity.Resume;
 import com.andersen.jobsearch.demo.entity.User;
 import com.andersen.jobsearch.demo.service.CompanyService;
 import com.andersen.jobsearch.demo.service.EmployeeService;
@@ -130,6 +131,7 @@ public class EmployeeController
 		return "employee/edit-employee";
 	}
 	
+	
 	@PostMapping("/employee/account/edit/user/{id}")
 	public String editUserInfo(@PathVariable("id") Long userId, @ModelAttribute("userDto")
 		@Valid UserDto userDto, BindingResult bindingResult, Model model)
@@ -150,5 +152,22 @@ public class EmployeeController
 		userService.saveUser(user);
 
 		return  "redirect:/employee/account";
+	}
+	
+	@GetMapping("/employee/get-jobs/apply-for-job/{jobId}")
+	public String apply(@PathVariable("jobId") Long jobId, Model model)
+	{
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("resumes", resumeService.findResumesByEmployee(username));
+		model.addAttribute("jobId", jobId);
+		model.addAttribute("resumeId", new String());
+		return "employee/apply-for-job";
+	}
+	
+	@PostMapping("/employee/get-jobs/apply-for-job/{jobId}")
+	public String apply(@RequestParam(name = "resumeId")Long resumeId, @PathVariable(name = "jobId") Long jobId)
+	{
+		jobService.apply(resumeId, jobId);
+		return "redirect:/employee/dashboard";
 	}
 }

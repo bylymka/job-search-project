@@ -43,7 +43,7 @@ public class Employee
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 

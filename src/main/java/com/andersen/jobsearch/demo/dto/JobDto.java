@@ -26,7 +26,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JobDto
-{
+{	
+	private Long jobId;
+	
 	@NotBlank
 	@Size(max=255)
 	private String jobTitle;
@@ -59,6 +61,7 @@ public class JobDto
 	public static JobDto toDto(Job job)
 	{
 		JobDto jobDto = JobDto.builder()
+				.jobId(job.getId())
 				.jobTitle(job.getJobTitle())
 				.description(job.getDescription())
 				.industry(job.getIndustry())
@@ -76,6 +79,7 @@ public class JobDto
 	public static Job fromDto(JobDto jobDto)
 	{
 		Job job = Job.builder()
+				.id(jobDto.getJobId())
 				.jobTitle(jobDto.getJobTitle())
 				.description(jobDto.getDescription())
 				.postedOn(LocalDate.now())

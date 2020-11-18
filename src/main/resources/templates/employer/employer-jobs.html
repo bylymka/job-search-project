@@ -49,6 +49,7 @@
       					<th class="table-header" scope="col">Skills</th>
       					<th class="table-header" scope="col">Salary</th>
       					<th class="table-header" scope="col">Employment Type</th>
+      					<th class="table-header" scope="col">Get Job Applicants</th>
     				</tr>
   				</thead>
   			<tbody>
@@ -61,7 +62,13 @@
        				<td><span class="user-info" th:text="${job.location}"></span></td>
        				<td><span class="user-info" th:text="${job.skills}"></span></td> 
        				<td><span class="user-info" th:text="${job.salary}"></span></td>
-       				<td><span class="user-info" th:text="${job.employmentType.toString()}"></span></td> 	
+       				<td><span class="user-info" th:text="${job.employmentType.toString()}"></span></td>	
+       				<td>
+       					<div><button type="button" class="btn btn-primary">
+        	     			<a class="apply-btn-ref" th:href="@{/employer/get-job/get-job-applicants/{jobId}(jobId = ${job.jobId})}">
+        	     				Get Job Applicants</a>
+        	     		</button></div>
+        	     	</td>
     			</tr>
   			</tbody>
 			</table>

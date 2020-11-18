@@ -10,6 +10,7 @@ import com.andersen.jobsearch.demo.dto.FullJobDto;
 import com.andersen.jobsearch.demo.entity.Company;
 import com.andersen.jobsearch.demo.entity.Employer;
 import com.andersen.jobsearch.demo.entity.Job;
+import com.andersen.jobsearch.demo.entity.Resume;
 
 public interface JobService
 {
@@ -29,9 +30,11 @@ public interface JobService
 	
 	List<Job> findJobsByCompany(String companyName);
 	
-	//List<Job> findJobsByTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int salary);
-	
 	List<Job> findJobsByProffesionAndCity(String proffesion, String city);
 	
 	List<Job> findJobsByEmploymentType(String type);
+	
+	void apply(Long resumeId, Long jobId);
+	
+	List<Resume> getAppliedResumes(Long jobId);
 }

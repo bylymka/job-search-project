@@ -55,13 +55,25 @@
 	margin:30px;
 }
 
+.apply-btn 
+{
+	text-align: right;
+}
+
+.apply-btn-ref
+{
+	color: white;
+	text-decoration: none;	
+}
+
 .center-btn
 {
 	text-align: center;
 	margin-bottom: 20px;
 }
 
-.page-image{
+.page-image
+{
 	height: 100vh;
 	background-image: url(q1.png);
 	background-size: cover;
