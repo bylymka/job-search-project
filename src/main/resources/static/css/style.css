@@ -22,6 +22,22 @@
   	width: 135px; 
 }
 
+.find-user-btn
+{
+	position: relative;
+	vertical-align: middle;
+	padding: 12px 12px;
+  	margin: 20px 40px;
+  	width: 123px; 
+}
+
+.search-user-txt
+{
+	position: relative;
+	vertical-align: middle;
+	padding: 12px 12px;
+}
+
 .show-item
 {
 	width: auto;

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.naming.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
+import com.andersen.jobsearch.demo.exception.UserIsBannedException;
 import com.andersen.jobsearch.demo.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +39,12 @@ public class UserDetailsServiceImpl implements UserDetailsService
 		
 		if (user != null) 
 		{
+			if(user.getIsBanned())
+			{
+				log.info("User with username: " + username + " is banned.");
+				throw new UsernameNotFoundException("User with username: " + username + " is banned.");
+			}
+			
             List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
             return buildUserForAuthentication(user, authorities);
         }

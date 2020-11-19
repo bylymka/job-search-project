@@ -26,11 +26,11 @@ public class LoginController
 	{
 		String errorMessage = null;
 		if (error != null)
-			errorMessage = "Username or Password is incorrect !!";
+			errorMessage = "Username or Password is incorrect !! Or your account is banned. Contact the administrator: jobsearch_admin@gmail.com";
 
 		if (logout != null)
 			errorMessage = "You have been successfully logged out !!";
-
+		
 		model.addAttribute("errorMessage", errorMessage);
 		return "login";
 	}

@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users(
 	last_name VARCHAR(100) NOT NULL,
 	email VARCHAR(255),
 	phone_num VARCHAR(20),
-	UNIQUE(Username),
+	is_banned TINYINT(1),
+	UNIQUE(username),
 	PRIMARY KEY(id)
 );
 

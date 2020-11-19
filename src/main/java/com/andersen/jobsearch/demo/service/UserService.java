@@ -22,4 +22,10 @@ public interface UserService
 	void updatePassword(String username, String oldPassword, String newPassword) throws PasswordException;
 	
 	User saveUser(User user);
+	
+	List<User> findAll();
+	
+	void setBan(Long userId, boolean ban);
+	
+	boolean isUserBanned(Long userId);
 }

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body class="page-background">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" th:href="@{/}">Jobbom</a>
+			</div>
+
+			<div class="pull-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/admin/find-user}"><span class="glyphicon glyphicon-search"></span> Find user</a></li>
+					<li><a th:href="@{?lang=en}"><img th:src="@{/img/us.png}"> English</a></li>
+					<li><a th:href="@{?lang=ru}"><img th:src="@{/img/rus.png}"> Russian</a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav><br/><br/><br/><br/><br/><br/><br/><br/>
+
+	<h1 align="center">User Search</h1>
+  	<div class="container">
+  	<div class="row">
+		<form th:action="@{/admin/find-user}" method="get">
+					<div class="col-md-5">
+    					<div class="search-box">
+      						<input type="search" class="form-control search"
+      			 			name="id" placeholder="ID" dir="auto">
+    					</div>	
+  					</div>
+  					<div class="col-md-5">
+  						<div class="search-box">
+      						<input type="search" class="form-control search" name="username"
+        					placeholder="or username" dir="auto">
+        				</div>
+  					</div>
+  					<div class="col-md-2">
+    					<button type="submit" class="btn btn-primary find-user-btn">Find user</button>
+  					</div>
+			</form>
+  		</div>
+  	</div> 
+  	
+  	<div class="container" th:if="${user != null}">
+  		<div class="row">
+      		<div class="col-md-12 show-item">
+			<div id="job">
+				<table class="table table-bordered">
+  				<thead>
+    				<tr class="danger" >
+      					<th  class="table-header" scope="col">Username</th>
+      					<th class="table-header" scope="col">ID</th>
+      					<th class="table-header"scope="col">Name</th>
+      					<th class="table-header" scope="col">Email</th>
+      					<th class="table-header" scope="col">Phone Number</th>
+      					<th class="table-header" scope="col">IsBanned</th>
+      					<th class="table-header" scope="col">Ban</th>
+    				</tr>
+  				</thead>
+  			<tbody>
+    			<tr class="info">
+    				<td><span class="user-info" th:text="${user.username}"></span></td>
+       				<td><span class="user-info" th:text="${user.id}"></span></td>
+       				<td><span class="user-info" th:text="${user.firstName + ' ' + user.lastName}"></span></td>
+    				<td><span class="user-info" th:text="${user.email}"></span></td>
+       				<td><span class="user-info" th:text="${user.phoneNum}"></span></td>
+       				<td><span class="user-info" th:text="${user.isBanned}"></span></td>	
+       				<td>
+   						<div th:if="${user.isBanned}"><button type="button" class="btn btn-primary">
+        	     			<a class="apply-btn-ref" th:href="@{/admin/dashboard/user(ban=false, id=${user.id})}">
+        	     			Unban</a>
+        	     		</button></div>
+        	     		
+   						<div th:unless="${user.isBanned}"><button type="button" class="btn btn-danger">
+        	     			<a class="apply-btn-ref" th:href="@{/admin/dashboard/user(ban=true, id=${user.id})}">
+        	     			Bun</a>
+        	     		</button></div>
+					</td>
+    			</tr>
+  			</tbody>
+			</table>
+		</div>
+  	</div>
+  </div>
+ </div>
+ 
+</body>
+</html>

@@ -89,4 +89,25 @@ public class UserServiceImpl implements UserService
 	{
 		return userRepository.save(user);
 	}
+	
+	@Override
+	public List<User> findAll() 
+	{
+		return userRepository.findAll();
+	}
+	
+	@Override
+	public void setBan(Long userId, boolean ban)
+	{
+		User user = findById(userId);
+		user.setIsBanned(ban);
+		userRepository.save(user);
+	}
+
+	@Override
+	public boolean isUserBanned(Long userId)
+	{
+		User user = findById(userId); 
+		return user.getIsBanned();
+	}
 }
