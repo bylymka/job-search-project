@@ -41,7 +41,7 @@ public class Resume
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employee_id")
 	private Employee employee;
 	

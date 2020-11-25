@@ -59,7 +59,7 @@ public class Job
 	@Column(name="posted_on")
 	private LocalDate postedOn;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employer_id")
 	private Employer employer;
 	

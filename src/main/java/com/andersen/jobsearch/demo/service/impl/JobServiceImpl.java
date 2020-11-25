@@ -122,12 +122,6 @@ public class JobServiceImpl implements JobService
 	{
 		return jobRepository.findByJobTitleContainingIgnoreCaseAndLocationIgnoreCase(proffesion, city);
 	}
-
-	@Override
-	public List<Job> findJobsByEmploymentType(String type) 
-	{
-		return jobRepository.findByEmploymentType(type);
-	}
 	
 	@Override
 	public void apply(Long resumeId, Long jobId) 

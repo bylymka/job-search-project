@@ -1,18 +1,13 @@
 package com.andersen.jobsearch.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.UserDto;
-import com.andersen.jobsearch.demo.entity.Role;
 import com.andersen.jobsearch.demo.entity.User;
-import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.exception.PasswordException;
 import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.repository.RoleRepository;

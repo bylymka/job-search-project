@@ -28,7 +28,8 @@ public class ResumeServiceImpl implements ResumeService
 	private EmployeeRepository employeeRepository;
 	
 	@Autowired
-	public ResumeServiceImpl(ResumeRepository resumeRepository, UserRepository userRepository, EmployeeRepository employeeRepository)
+	public ResumeServiceImpl(ResumeRepository resumeRepository, UserRepository userRepository,
+			EmployeeRepository employeeRepository)
 	{
 		this.resumeRepository = resumeRepository;
 		this.userRepository = userRepository;
@@ -39,7 +40,8 @@ public class ResumeServiceImpl implements ResumeService
 	public Resume saveResume(ResumeDto resumeDto, String employeeUsername) 
 	{
 		User user = userRepository.findByUsername(employeeUsername).
-				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + " does not exist."));
+				orElseThrow(() -> new IllegalArgumentException("The employee with username " + employeeUsername + 
+						" does not exist."));
 		
 		Employee employee = employeeRepository.findByUser(user);
 		Resume resume = ResumeDto.fromDto(resumeDto);

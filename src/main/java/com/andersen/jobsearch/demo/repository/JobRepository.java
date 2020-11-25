@@ -30,9 +30,5 @@ public interface JobRepository extends JpaRepository<Job, Long>
 	
 	List<Job> findByCompany(Company company);
 	
-	List<Job> findByJobTitleAndLocationAndSalaryGreaterThan(String jobTitle, String location, int salary);
-	
 	List<Job> findByJobTitleContainingIgnoreCaseAndLocationIgnoreCase(String jobTitle, String location);
-
-	List<Job> findByEmploymentType(String type);
 }

@@ -17,6 +17,7 @@ import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationExc
 import com.andersen.jobsearch.demo.repository.EmployeeRepository;
 import com.andersen.jobsearch.demo.repository.RoleRepository;
 import com.andersen.jobsearch.demo.repository.UserRepository;
+import com.andersen.jobsearch.demo.repository.UserRepository;
 import com.andersen.jobsearch.demo.service.EmployeeService;
 
 import lombok.extern.slf4j.Slf4j;

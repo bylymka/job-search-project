@@ -32,8 +32,6 @@ public interface JobService
 	
 	List<Job> findJobsByProffesionAndCity(String proffesion, String city);
 	
-	List<Job> findJobsByEmploymentType(String type);
-	
 	void apply(Long resumeId, Long jobId);
 	
 	List<Resume> getAppliedResumes(Long jobId);
