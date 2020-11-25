@@ -59,7 +59,7 @@ public class User
 	
 	@Column(name="is_banned")
 	@Type(type = "org.hibernate.type.BooleanType")
-	private Boolean isBanned;
+	private boolean isBanned;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),

@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService
 	public void setBan(Long userId, boolean ban)
 	{
 		User user = findById(userId);
-		user.setIsBanned(ban);
+		user.setBanned(ban);
 		userRepository.save(user);
 	}
 
@@ -103,6 +103,6 @@ public class UserServiceImpl implements UserService
 	public boolean isUserBanned(Long userId)
 	{
 		User user = findById(userId); 
-		return user.getIsBanned();
+		return user.isBanned();
 	}
 }

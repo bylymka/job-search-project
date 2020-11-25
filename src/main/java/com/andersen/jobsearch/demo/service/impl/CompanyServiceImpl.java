@@ -1,13 +1,9 @@
 package com.andersen.jobsearch.demo.service.impl;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andersen.jobsearch.demo.dto.CompanyDto;
 import com.andersen.jobsearch.demo.entity.Company;
-import com.andersen.jobsearch.demo.exception.EntityAlreadyExistAuthenticationException;
 import com.andersen.jobsearch.demo.repository.CompanyRepository;
 import com.andersen.jobsearch.demo.service.CompanyService;
 

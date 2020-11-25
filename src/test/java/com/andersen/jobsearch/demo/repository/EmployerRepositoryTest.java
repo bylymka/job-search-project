@@ -31,7 +31,7 @@ public class EmployerRepositoryTest
 	private Company company;
 	
 	@Before
-	public void saveEmployerToDb()
+	public void initialize()
 	{
 		user = User.builder()
 			.username("kkoop")

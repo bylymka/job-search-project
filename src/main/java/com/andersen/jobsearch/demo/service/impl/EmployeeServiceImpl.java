@@ -61,14 +61,11 @@ public class EmployeeServiceImpl implements EmployeeService
 		Employee employee = EmployeeDto.fromDto(employeeDto);
 		
 		Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getOne(2)); // 2 - EPLOYEE_ROLE
+        roles.add(roleRepository.getOne(2)); // 2 - ROLE_EMPLOYEE
         log.info("Added role for user with username: " + employeeDto.getUsername());
         employee.getUser().setRoles(roles);
         employee.getUser().setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
-        
-		User user = userRepository.save(employee.getUser());
-		employee.getUser().setId(user.getId());
-		log.info("User with username: " + user.getUsername() + "was registered");
+       
 		return employeeRepository.save(employee);
 	}
 	

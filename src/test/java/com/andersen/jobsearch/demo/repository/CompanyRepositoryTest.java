@@ -27,7 +27,7 @@ public class CompanyRepositoryTest
 	private Company company;
 	
 	@Before
-	public void saveCompanyToDb()
+	public void initialize()
 	{
 		company = Company.builder()
 			.address("Prospekt Pobedi, 22A")

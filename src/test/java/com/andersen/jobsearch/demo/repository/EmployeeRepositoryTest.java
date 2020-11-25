@@ -28,7 +28,7 @@ public class EmployeeRepositoryTest
 	private User user;
 	
 	@Before
-	public void saveEmployeeToDb()
+	public void initialize()
 	{
 		user = User.builder()
 			.username("kkoop")

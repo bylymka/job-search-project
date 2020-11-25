@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 		
 		if (user != null) 
 		{
-			if(user.getIsBanned())
+			if(user.isBanned())
 			{
 				log.info("User with username: " + username + " is banned.");
 				throw new UsernameNotFoundException("User with username: " + username + " is banned.");
@@ -69,5 +69,4 @@ public class UserDetailsServiceImpl implements UserDetailsService
     {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
-
 }

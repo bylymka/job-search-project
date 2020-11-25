@@ -48,6 +48,11 @@ public class Role
 		return result;
 	}
 
+	public Role(Integer id, String role)
+	{
+		this.id = id;
+		this.role = role;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

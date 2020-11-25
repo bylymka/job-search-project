@@ -31,7 +31,7 @@ public class UserRepositoryTest
 	private User user;
 	
 	@Before
-	public void initializeUser()
+	public void initialize()
 	{
 		user = User.builder()
 			.username("iklymenko")
@@ -89,3 +89,4 @@ public class UserRepositoryTest
 		assertTrue("User was not found", userRepository.existsUserByUsername(username));
 	}
 }
+

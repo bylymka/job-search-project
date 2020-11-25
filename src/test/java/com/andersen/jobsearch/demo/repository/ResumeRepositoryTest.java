@@ -32,7 +32,7 @@ public class ResumeRepositoryTest
 	private Resume resume;
 	
 	@Before
-	public void saveResume()
+	public void initialize()
 	{
 		User user = User.builder()
 			.username("iklymenko")
