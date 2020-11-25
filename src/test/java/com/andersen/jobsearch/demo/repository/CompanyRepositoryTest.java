@@ -30,13 +30,13 @@ public class CompanyRepositoryTest
 	public void saveCompanyToDb()
 	{
 		company = Company.builder()
-				.address("Prospekt Pobedi, 22A")
-				.name("MyCompany")
-				.codeEDRPOU(12345678L)
-				.description("Description")
-				.industry("IT")
-				.employeesNum(200)
-				.build();
+			.address("Prospekt Pobedi, 22A")
+			.name("MyCompany")
+			.codeEDRPOU(12345678L)
+			.description("Description")
+			.industry("IT")
+			.employeesNum(200)
+			.build();
 		entityManager.persist(company);
 		entityManager.flush();
 	}

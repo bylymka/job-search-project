@@ -40,8 +40,8 @@ public class EmployeeRepositoryTest
 			.build();
 		
 		employee = Employee.builder()
-				.user(user)
-				.build();
+			.user(user)
+			.build();
 		
 		entityManager.persist(employee);
 		entityManager.flush();
