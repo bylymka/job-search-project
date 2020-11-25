@@ -34,13 +34,13 @@ public class UserRepositoryTest
 	public void initializeUser()
 	{
 		user = User.builder()
-				.username("iklymenko")
-				.firstName("Inna")
-				.lastName("Klymenko")
-				.password("qwerty")
-				.email("innaklymenko@gmail.com")
-				.phoneNum("+380981234567")
-				.build();
+			.username("iklymenko")
+			.firstName("Inna")
+			.lastName("Klymenko")
+			.password("qwerty")
+			.email("innaklymenko@gmail.com")
+			.phoneNum("+380981234567")
+			.build();
 	}
 	
 	@Test
